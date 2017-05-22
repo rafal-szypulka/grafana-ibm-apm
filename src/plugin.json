@@ -1,0 +1,26 @@
+{
+  "name": "IBM APM",
+  "type": "datasource",
+  "id": "ibm-apm",
+
+  "metrics": true,
+  "annotations": false,
+
+  "info": {
+    "author": {
+      "name": "Rafal Szypulka",
+      "url": ""
+    },
+    "logos": {
+      "small": "img/ibm-apm.png",
+      "large": "img/ibm-apm.png"
+    },
+    "dependencies": {
+      "grafanaVersion": "^3.0.1",
+      "angular": "^1.5.6",
+      "lodash": "^4.13.1",
+      "moment": "^2.13.0",
+      "plugins": [ ]
+    }
+  }
+}
