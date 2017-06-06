@@ -79,11 +79,11 @@ If you want to customize existing dashboard in the sandbox environment, please c
 Example dashboards
 ==================
 
-1). Sample IBM Stack monitoring dashboard with data from Linux OS, WRT, WAS, MQ agents:
+1). Sample IBM Stack monitoring dashboard with data from Linux OS, IHS, WAS, MQ, DB2 and IIB agents:
     [*http://169.44.6.110/dashboard/db/sample-ibm-stack-monitoring?refresh=30s&orgId=1*](http://169.44.6.110/dashboard/db/sample-ibm-stack-monitoring?refresh=30s&orgId=1)
     
     
-![](./media/Sample_IBM_Stack_monitoring.png)
+![](./media/Sample_IBM_Stack_monitoring1.png)
 
 
 2). Linux OS dashboard with the list of agents based on Grafana template variable. Data collected from APMv8.
@@ -114,6 +114,18 @@ It looks exatly the same as the one above, but data is collected from ITMv6.
 [*http://169.44.6.110/dashboard/db/sample-iib-dashbaord?refresh=30s&orgId=1*](http://169.44.6.110/dashboard/db/sample-iib-dashbaord?refresh=30s&orgId=1)
 
 ![](./media/iib.png)
+
+7). Transaction Volume and Response Time collected by the Web Response Time Agent.
+
+[*http://169.44.6.110/dashboard/db/transactions-collected-by-response-time-agent?refresh=30s&orgId=1*](http://169.44.6.110/dashboard/db/transactions-collected-by-response-time-agent?refresh=30s&orgId=1)
+
+![](./media/Transactions_collected_by_Response_Time_Agent.png)
+
+8). Simulated Transaction Volume collected the the custom agent created with the Agent Builder.
+
+[*http://169.44.6.110/dashboard/db/simulated-transactions-volumes-monitored-by-custom-apm-agent-1?orgId=1*](http://169.44.6.110/dashboard/db/simulated-transactions-volumes-monitored-by-custom-apm-agent-1?orgId=1)
+
+![](./media/Simulated_Transactions_Volumes_monitored_by_Custom_APM_Agent_-_1.png)
 
 How to create a new panel using IBM APM datasource
 ===============================
@@ -202,6 +214,13 @@ Verification: please check the following path after plugin unpack:
 `
 /var/lib/grafana/plugins/grafana-ibm-apm/dist/datasource.js
 `
+
+Other method (if Grafana has an internet access) is to clone GitHub repository using:
+
+```
+cd /var/lib/grafana/plugins/
+git clone https://github.com/rafal-szypulka/grafana-ibm-apm
+```
 
 2).  Restart Grafana. On RedHat/Centos run:
 

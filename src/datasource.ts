@@ -23,7 +23,7 @@ class IPMDatasource {
     var requests = _.map(options.targets, target => {
       return {
         url: this.url + '/datasources/' + encodeURIComponent(target.target) + '/datasets/' + target.AttributeGroup + '/items',
-        alias: this.templateSrv.replace(target.alias),
+        alias: this.templateSrv.replace(target.alias, options.scopedVars),
         valueAttribute: target.valueAttribute,
         params: {
           param_SourceToken: this.templateSrv.replace(target.AgentInstance, options.scopedVars),
@@ -31,7 +31,7 @@ class IPMDatasource {
           optimize: 'true',
           param_Time: rangeFrom + '--' + rangeTo,
           param_NoCache: 'false',
-          properties: target.Attribute + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
+          properties: this.templateSrv.replace(target.Attribute , options.scopedVars) + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
           condition: this.templateSrv.replace(target.Condition, options.scopedVars),
         }
       };
@@ -43,7 +43,7 @@ class IPMDatasource {
         delete request.params.condition;
       }
     });
-    
+
     return this.$q(function (resolve, reject) {
       var mergedResults = {
         data: []
@@ -105,7 +105,7 @@ class IPMDatasource {
   }
 
   metricFindQuery(agentType) {
-    var agents = [];    
+    var agents = [];
     var aT = agentType.replace(/^.*-->  /, '');
     let request = {
       url: this.url + '/datasources/' + encodeURIComponent(aT) + '/datasets/msys/items?properties=all'

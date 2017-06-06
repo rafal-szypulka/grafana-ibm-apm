@@ -28,7 +28,7 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     var requests = lodash_1.default.map(options.targets, function (target) {
                         return {
                             url: _this.url + '/datasources/' + encodeURIComponent(target.target) + '/datasets/' + target.AttributeGroup + '/items',
-                            alias: _this.templateSrv.replace(target.alias),
+                            alias: _this.templateSrv.replace(target.alias, options.scopedVars),
                             valueAttribute: target.valueAttribute,
                             params: {
                                 param_SourceToken: _this.templateSrv.replace(target.AgentInstance, options.scopedVars),
@@ -36,7 +36,7 @@ System.register(['moment', 'lodash'], function(exports_1) {
                                 optimize: 'true',
                                 param_Time: rangeFrom + '--' + rangeTo,
                                 param_NoCache: 'false',
-                                properties: target.Attribute + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
+                                properties: _this.templateSrv.replace(target.Attribute, options.scopedVars) + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
                                 condition: _this.templateSrv.replace(target.Condition, options.scopedVars),
                             }
                         };
