@@ -199,6 +199,8 @@ Nginx should be configured to clear the Referer header. In the nginx.conf modify
         } 
 ```
 
+Full installation and configuration process (Grafana, Nginx and IBM APM plugin) is also recorded [here](https://developer.ibm.com/apm/videos/grafana-plugin-ibm-apm-installation-import-sample-dashboards/).
+
 IBM APM plugin installation
 ===========================
 
