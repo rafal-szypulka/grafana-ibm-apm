@@ -11,6 +11,9 @@
       "name": "Rafal Szypulka",
       "url": ""
     },
+    "links": [
+         {"name": "Project site", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm"}
+         ],
     "logos": {
       "small": "img/ibm-apm.png",
       "large": "img/ibm-apm.png"
