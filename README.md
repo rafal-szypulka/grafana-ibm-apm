@@ -243,7 +243,7 @@ http://&lt;apm\_server\_hostname&gt;:8090/ibm/tivoli/rest/providers/itm.KD8
 
 -   ITMv6/SCAPMv7
 
-http://&lt;tems\_server\_hostname&gt;:15200/ibm/tivoli/rest/providers/itm.&lt;TEMS\_NAME&gt;
+http://&lt;teps\_server\_hostname&gt;:15200/ibm/tivoli/rest/providers/itm.&lt;TEMS\_NAME&gt;
 
 Select **Basic Auth** and **With credentials** and specify the user name
 
@@ -331,7 +331,7 @@ and test in the APM REST API test tool:
 
 APMv8: http://\<apm\_server\_hostname\>:8090/ITMRESTProvider/test.html
 
-ITM6/SACAPM7: http://\<HTEMS\_server\_hostname\>:15200/ITMRESTPrivider/test.html
+ITM6/SACAPM7: http://\<TEPS\_server\_hostname\>:15200/ITMRESTPrivider/test.html
 
 
 Example request:
