@@ -19,6 +19,10 @@ declare class IPMQueryCtrl extends QueryCtrl {
         name: string;
         value: string;
     }[];
+    timeRangeAttributes: {
+        name: string;
+        value: string;
+    }[];
     /** @ngInject **/
     constructor($scope: any, $injector: any);
     getAgentTypes(): any;

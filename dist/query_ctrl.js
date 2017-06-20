@@ -28,6 +28,10 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                         { name: 'value', value: 'value' },
                         { name: 'displayValue', value: 'displayValue' }
                     ];
+                    this.timeRangeAttributes = [
+                        { name: 'Dashboard time range', value: 'dashboard' },
+                        { name: 'Current value', value: 'current' }
+                    ];
                     var target_defaults = {
                         target: 'Select Agent Type',
                         AttributeGroup: 'Select AttributeGroup',
@@ -37,6 +41,7 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     lodash_1.default.defaultsDeep(this.target, target_defaults);
                     this.target.timeAttribute = this.target.timeAttribute || 'WRITETIME';
                     this.target.valueAttribute = this.target.valueAttribute || 'displayValue';
+                    this.target.timeRangeAttribute = this.target.timeRangeAttribute || 'dashboard';
                 }
                 ;
                 IPMQueryCtrl.prototype.getAgentTypes = function () {

@@ -21,6 +21,10 @@ class IPMDatasource {
     var rangeTo = moment(options.range.to).utc().format('YYYYMMDDTHHmmss');
 
     var requests = _.map(options.targets, target => {
+      if(target.timeRangeAttribute === 'current') {
+        rangeFrom = '';
+        rangeTo = '';
+      }
       return {
         url: this.url + '/datasources/' + encodeURIComponent(target.target) + '/datasets/' + target.AttributeGroup + '/items',
         alias: this.templateSrv.replace(target.alias, options.scopedVars),
@@ -31,8 +35,9 @@ class IPMDatasource {
           optimize: 'true',
           param_Time: rangeFrom + '--' + rangeTo,
           param_NoCache: 'false',
-          properties: this.templateSrv.replace(target.Attribute , options.scopedVars) + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
+          properties: this.templateSrv.replace(target.Attribute, options.scopedVars) + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
           condition: this.templateSrv.replace(target.Condition, options.scopedVars),
+          // param_Time_Summarized: 'H'
         }
       };
     });
@@ -42,8 +47,13 @@ class IPMDatasource {
       if (request.params.condition === '') {
         delete request.params.condition;
       }
+      if (request.params.param_Time === '--') {
+        delete request.params.param_Time;
+      }
     });
 
+    // 
+    
     return this.$q(function (resolve, reject) {
       var mergedResults = {
         data: []
@@ -105,7 +115,7 @@ class IPMDatasource {
   }
 
   metricFindQuery(agentType) {
-    var agents = [];
+    var agents = [];    
     var aT = agentType.replace(/^.*-->  /, '');
     let request = {
       url: this.url + '/datasources/' + encodeURIComponent(aT) + '/datasets/msys/items?properties=all'
@@ -217,12 +227,12 @@ class IPMDatasource {
     if (target || target == 0) {
       items.forEach(function (item) {
         if (item.properties[2].value == target) {
-          series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + '.000Z').valueOf()]);
-        }
-      });
+            series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + '.000Z').valueOf()]);
+         }
+       });
     } else {
       items.forEach(function (item) {
-        series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + '.000Z').valueOf()]);
+          series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + '.000Z').valueOf()]);
       });
     }
     return series;
@@ -248,17 +258,13 @@ class IPMDatasource {
       data: request.data,
     };
 
-    return this.backendSrv.datasourceRequest(options).then(result => {
+    return this.backendSrv.datasourceRequest(options).then(function(result) {
       return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute };
-    }, function (err) {
-      if (err.status !== 0 || err.status >= 300) {
-        if (err.data && err.data.error) {
-          throw { message: 'IPM Error Response: ' + err.data.error.title, data: err.data, config: err.config };
-        } else {
-          throw { message: 'IPM Error: ' + err.message, data: err.data, config: err.config };
+    }, function (err) {    
+      if (err.status >= 300) {
+          throw { message: 'IPM Error: ' + err.data.msgText, config: err.config.params };
         }
-      }
-    });
+    });    
   }
 
 

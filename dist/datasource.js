@@ -26,6 +26,10 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     var rangeFrom = moment_1.default(options.range.from).utc().format('YYYYMMDDTHHmmss');
                     var rangeTo = moment_1.default(options.range.to).utc().format('YYYYMMDDTHHmmss');
                     var requests = lodash_1.default.map(options.targets, function (target) {
+                        if (target.timeRangeAttribute === 'current') {
+                            rangeFrom = '';
+                            rangeTo = '';
+                        }
                         return {
                             url: _this.url + '/datasources/' + encodeURIComponent(target.target) + '/datasets/' + target.AttributeGroup + '/items',
                             alias: _this.templateSrv.replace(target.alias, options.scopedVars),
@@ -46,7 +50,11 @@ System.register(['moment', 'lodash'], function(exports_1) {
                         if (request.params.condition === '') {
                             delete request.params.condition;
                         }
+                        if (request.params.param_Time === '--') {
+                            delete request.params.param_Time;
+                        }
                     });
+                    // 
                     return this.$q(function (resolve, reject) {
                         var mergedResults = {
                             data: []
@@ -243,13 +251,8 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     return this.backendSrv.datasourceRequest(options).then(function (result) {
                         return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute };
                     }, function (err) {
-                        if (err.status !== 0 || err.status >= 300) {
-                            if (err.data && err.data.error) {
-                                throw { message: 'IPM Error Response: ' + err.data.error.title, data: err.data, config: err.config };
-                            }
-                            else {
-                                throw { message: 'IPM Error: ' + err.message, data: err.data, config: err.config };
-                            }
+                        if (err.status >= 300) {
+                            throw { message: 'IPM Error: ' + err.data.msgText, config: err.config.params };
                         }
                     });
                 };

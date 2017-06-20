@@ -24,6 +24,11 @@ class IPMQueryCtrl extends QueryCtrl {
         { name: 'displayValue', value: 'displayValue' }
     ];
 
+    timeRangeAttributes = [
+        { name: 'Dashboard time range', value: 'dashboard'},
+        { name: 'Current value', value: 'current'}
+    ]
+
   /** @ngInject **/
   constructor($scope, $injector) {
 
@@ -38,6 +43,7 @@ class IPMQueryCtrl extends QueryCtrl {
     _.defaultsDeep(this.target, target_defaults);
     this.target.timeAttribute = this.target.timeAttribute || 'WRITETIME';
     this.target.valueAttribute = this.target.valueAttribute || 'displayValue';
+    this.target.timeRangeAttribute = this.target.timeRangeAttribute || 'dashboard';
   };
 
   getAgentTypes() {

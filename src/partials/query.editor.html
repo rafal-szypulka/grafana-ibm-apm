@@ -53,7 +53,7 @@
     </div>
   </div>
   <div class="gf-form-inline">
-    <label class="gf-form-label query-keyword width-12">Time Attribute</label>
+    <label class="gf-form-label query-keyword width-10">Time Attribute</label>
     <span class="gf-form-select-wrapper">
       <select class="gf-form-input gf-size-auto"
               ng-model="ctrl.target.timeAttribute"
@@ -64,6 +64,13 @@
       <select class="gf-form-input gf-size-auto"
               ng-model="ctrl.target.valueAttribute"
               ng-options="v.value as v.name for v in ctrl.valueAttributes"></select>
+    </span>
+    <label class="gf-form-label query-keyword width-12">Time Range 
+    <tip>Change to current value in order to ignore global time range filter and show only last sampled value. Useful for data not not enabled for historical collection.</tip></label>
+    <span class="gf-form-select-wrapper">
+      <select class="gf-form-input gf-size-auto"
+              ng-model="ctrl.target.timeRangeAttribute"
+              ng-options="v.value as v.name for v in ctrl.timeRangeAttributes"></select>
     </span>
   </div>
 </query-editor-row>
