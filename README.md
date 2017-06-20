@@ -6,8 +6,9 @@ Contact: rafal.szypulka@pl.ibm.com
 
 Revision: 0.3
 
+**What's new:**
 
-
+- 0.3 - New field **Time Range** in the panel query editor. If set to *Current value*, then panel query will ignore global dashboard time filter and show only the current value of the metric. Use it only for singlestat and table panels. 
 
 Contents 
 ========
