@@ -66,7 +66,7 @@
               ng-options="v.value as v.name for v in ctrl.valueAttributes"></select>
     </span>
     <label class="gf-form-label query-keyword width-12">Time Range 
-    <tip>Change to current value in order to ignore global time range filter and show only last sampled value. Useful for data not not enabled for historical collection.</tip></label>
+    <tip>Change to current value in order to ignore global time range filter and show only last sampled value (useful for ITMv6 data, not enabled for historical collection).</tip></label>
     <span class="gf-form-select-wrapper">
       <select class="gf-form-input gf-size-auto"
               ng-model="ctrl.target.timeRangeAttribute"
