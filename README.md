@@ -4,7 +4,7 @@ Author: Rafal Szypulka
 
 Contact: rafal.szypulka@pl.ibm.com
 
-Revision: 0.2
+Revision: 0.3
 
 
 
@@ -357,9 +357,9 @@ To test the same request in the APM REST API test tool change it to:
 
 **/ibm/tivoli/rest/providers/itm.KD8**/datasources/TMSAgent.%25IBM.STATIC134/datasets/MetricGroup.KLZCPU/items?clearCache=true&condition=CPUID+%3D+-1&optimize=true&param\_NoCache=false&param\_SourceToken=skarsv100:LZ&param\_Time=20170428T072122--20170428T082122&properties=BUSYCPU,WRITETIME,CPUID
 
-4). If the REST API rejects requets from Grafana because of wrong HTTP referer header, consider installing Nginx reverse proxy as described in the installation chapter.
+4). If the REST API rejects requests from Grafana because of wrong HTTP referer header, use one of the proposed workarounds described in the installation chapter.
 
-5). [ITMv6] Historical collection must be enabled for Attribute Groups that are visualized on the dashboard, otherwise you will see an error in the javascript console similar to the one below:
+5). [ITMv6] If the historical collection is not enabled for attribute group specified in the panel query then, by default the similar error will be logged in the bowser console:
 
 ```
 {"message":"IPM Error: undefined","data" {"msgId":"ATKRST100E","stackTrace":
@@ -380,3 +380,5 @@ if you are going to import [sample dashboard for ITMv6 Linux OS Agents](https://
 - KLZ Network
 - KLZ System Statistics
 - KLZ VM Stats
+
+Attributes from attribute groups not enabled for historical collection can be displayed in singlestat and table panels if the option **Time Range** is set to *Current value* in the panel query editor.
