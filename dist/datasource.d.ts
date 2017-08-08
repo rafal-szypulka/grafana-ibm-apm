@@ -7,7 +7,9 @@ declare class IPMDatasource {
     url: string;
     appId: any;
     pk: any;
-    constructor(instanceSettings: any, $q: any, backendSrv: any, templateSrv: any);
+    alertSrv: any;
+    tzOffset: string;
+    constructor(instanceSettings: any, $q: any, backendSrv: any, templateSrv: any, alertSrv: any);
     query(options: any): any;
     getAgentTypes(): any;
     getAttributeGroups(agentType: any): any;

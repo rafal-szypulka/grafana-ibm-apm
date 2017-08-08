@@ -33,10 +33,11 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                         { name: 'Current value', value: 'current' }
                     ];
                     var target_defaults = {
-                        target: 'Select Agent Type',
-                        AttributeGroup: 'Select AttributeGroup',
-                        Attribute: 'Select Attribute',
-                        AgentInstance: 'Select Agent'
+                        target: 'Select Agent Type...',
+                        AttributeGroup: 'Select AttributeGroup...',
+                        Attribute: 'Select Attribute...',
+                        PrimaryKey: 'Select Display Item...',
+                        AgentInstance: 'Select Agent...'
                     };
                     lodash_1.default.defaultsDeep(this.target, target_defaults);
                     this.target.timeAttribute = this.target.timeAttribute || 'WRITETIME';
@@ -45,14 +46,12 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 }
                 ;
                 IPMQueryCtrl.prototype.getAgentTypes = function () {
-                    var _this = this;
                     if (this.at) {
                         return Promise.resolve(this.at);
                     }
                     else {
                         return this.datasource.getAgentTypes()
                             .then(function (items) {
-                            _this.at = items;
                             return items;
                         });
                     }
@@ -65,11 +64,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     });
                 };
                 IPMQueryCtrl.prototype.getAttributeGroups = function () {
-                    var _this = this;
                     var target = this.target.target;
                     return this.datasource.getAttributeGroups(target)
                         .then(function (items) {
-                        _this.ag = items;
                         return items;
                     });
                 };
@@ -82,11 +79,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     });
                 };
                 IPMQueryCtrl.prototype.getAgentInstances = function () {
-                    var _this = this;
                     var name = this.target.target;
                     return this.datasource.getAgentInstances(name)
                         .then(function (items) {
-                        _this.ai = items;
                         return items;
                     });
                 };
@@ -98,12 +93,10 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     });
                 };
                 IPMQueryCtrl.prototype.getAttributes = function () {
-                    var _this = this;
                     var target = this.target.target;
                     var aG = this.target.AttributeGroup;
                     return this.datasource.getAttributes(target, aG)
                         .then(function (items) {
-                        _this.atr = items;
                         return items;
                     });
                 };
@@ -134,17 +127,14 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 IPMQueryCtrl.prototype.onChangeInternal = function () {
                     this.refresh();
                 };
-                IPMQueryCtrl.prototype.onChangeInternal1 = function () {
+                IPMQueryCtrl.prototype.onChangeAttributeGroup = function () {
                     var _this = this;
-                    delete this.target.PrimaryKey;
                     this.getPrimaryKey().then(function (items) {
                         if (lodash_1.default.isEmpty(_this.pk)) {
-                            //console.log('empty');
-                            document.getElementById("pk").style.visibility = 'hidden';
+                            _this.showPrimaryKey = false;
                         }
                         else {
-                            //console.log('full');
-                            document.getElementById("pk").style.visibility = 'visible';
+                            _this.showPrimaryKey = true;
                         }
                     });
                     this.refresh();

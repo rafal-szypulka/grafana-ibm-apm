@@ -13,6 +13,7 @@ class IPMQueryCtrl extends QueryCtrl {
   atr: any[];  //Attributes for Attribute Group
   pk: any[];  //Primary Key for Attribute Group
   ai: any[];   //Agent Instances
+  showPrimaryKey: boolean;
 
    timeAttributes = [
         { name: 'TIMESTAMP', value: 'TIMESTAMP' },
@@ -35,10 +36,11 @@ class IPMQueryCtrl extends QueryCtrl {
 
     super($scope, $injector);
     let target_defaults = {
-      target: 'Select Agent Type',
-      AttributeGroup: 'Select AttributeGroup',
-      Attribute: 'Select Attribute',
-      AgentInstance: 'Select Agent'
+      target: 'Select Agent Type...',
+      AttributeGroup: 'Select AttributeGroup...',
+      Attribute: 'Select Attribute...',
+      PrimaryKey: 'Select Display Item...',
+      AgentInstance: 'Select Agent...'
     }
     _.defaultsDeep(this.target, target_defaults);
     this.target.timeAttribute = this.target.timeAttribute || 'WRITETIME';
@@ -52,7 +54,6 @@ class IPMQueryCtrl extends QueryCtrl {
     } else {
       return this.datasource.getAgentTypes()
         .then(items => {
-          this.at = items;
           return items;
         });
     }
@@ -70,7 +71,6 @@ class IPMQueryCtrl extends QueryCtrl {
     let target = this.target.target;
     return this.datasource.getAttributeGroups(target)
       .then(items => {
-        this.ag = items;
         return items;
       });
   }
@@ -88,7 +88,6 @@ class IPMQueryCtrl extends QueryCtrl {
     let name = this.target.target;
     return this.datasource.getAgentInstances(name)
       .then(items => {
-        this.ai = items;
         return items;
       });
   }
@@ -106,7 +105,6 @@ class IPMQueryCtrl extends QueryCtrl {
     let aG = this.target.AttributeGroup;
     return this.datasource.getAttributes(target, aG)
       .then(items => {
-        this.atr = items;
         return items;
       });
   }
@@ -141,21 +139,16 @@ class IPMQueryCtrl extends QueryCtrl {
     this.refresh();
   }
 
-  onChangeInternal1() {
-    delete this.target.PrimaryKey;
-    this.getPrimaryKey().then(items => {
-      if (_.isEmpty(this.pk)) {
-        //console.log('empty');
-        document.getElementById("pk").style.visibility = 'hidden';
-      } else {
-        //console.log('full');
-        document.getElementById("pk").style.visibility = 'visible';
-      }
-    });
-
+  onChangeAttributeGroup() {
+     this.getPrimaryKey().then(items => {
+       if (_.isEmpty(this.pk)) {
+         this.showPrimaryKey = false;
+       } else {
+         this.showPrimaryKey = true;
+       }
+     });
     this.refresh();
   }
-
 }
 
 export { IPMQueryCtrl };

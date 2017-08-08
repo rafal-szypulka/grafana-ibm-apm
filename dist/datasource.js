@@ -11,20 +11,22 @@ System.register(['moment', 'lodash'], function(exports_1) {
             }],
         execute: function() {
             IPMDatasource = (function () {
-                function IPMDatasource(instanceSettings, $q, backendSrv, templateSrv) {
+                function IPMDatasource(instanceSettings, $q, backendSrv, templateSrv, alertSrv) {
                     this.$q = $q;
                     this.backendSrv = backendSrv;
                     this.templateSrv = templateSrv;
                     this.name = instanceSettings.name;
                     this.backendSrv = backendSrv;
                     this.url = instanceSettings.url;
-                    this.name = instanceSettings.name;
+                    this.alertSrv = alertSrv;
+                    this.tzOffset = instanceSettings.jsonData.tzOffset;
                 }
                 IPMDatasource.prototype.query = function (options) {
                     var _this = this;
                     var self = this;
-                    var rangeFrom = moment_1.default(options.range.from).utc().format('YYYYMMDDTHHmmss');
-                    var rangeTo = moment_1.default(options.range.to).utc().format('YYYYMMDDTHHmmss');
+                    var rangeFrom = moment_1.default(options.range.from).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
+                    var rangeTo = moment_1.default(options.range.to).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
+                    //this.alertSrv.set("date range",rangeFrom + ' -- ' + rangeTo + ' -- ' + self.tzOffset,"error");
                     var requests = lodash_1.default.map(options.targets, function (target) {
                         if (target.timeRangeAttribute === 'current') {
                             rangeFrom = '';
@@ -54,7 +56,6 @@ System.register(['moment', 'lodash'], function(exports_1) {
                             delete request.params.param_Time;
                         }
                     });
-                    // 
                     return this.$q(function (resolve, reject) {
                         var mergedResults = {
                             data: []
@@ -65,7 +66,13 @@ System.register(['moment', 'lodash'], function(exports_1) {
                         });
                         self.$q.all(promises).then(function (data) {
                             data.forEach(function (result) {
-                                mergedResults.data = mergedResults.data.concat(self.parse(result));
+                                if (typeof result.message == "undefined" && result.status == 200) {
+                                    mergedResults.data = mergedResults.data.concat(self.parse(result));
+                                }
+                                else {
+                                    result.message = "Server Response: " + result.status + ", Message: " + result.message;
+                                    reject(result);
+                                }
                             });
                             resolve(mergedResults);
                         });
@@ -85,6 +92,7 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     return this.doSimpleHttpGet(request);
                 };
                 IPMDatasource.prototype.getAgentInstances = function (agentType) {
+                    var _this = this;
                     var agents = [];
                     var aT = agentType.replace(/^.*-->  /, '');
                     var request = {
@@ -92,25 +100,31 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     };
                     return this.httpGet(request)
                         .then(function (result) {
-                        if (result.response.items) {
-                            result.response.items.forEach(function (item) {
-                                if (item.properties) {
-                                    item.properties.forEach(function (property) {
-                                        if (property.id === 'ORIGINNODE') {
-                                            agents.push({ text: property.value, value: property.value });
-                                        }
-                                    });
-                                }
-                            });
-                            //console.log(agents);
-                            return agents;
+                        if (typeof result.message == "undefined" && result.status == 200) {
+                            if (result.response.items) {
+                                result.response.items.forEach(function (item) {
+                                    if (item.properties) {
+                                        item.properties.forEach(function (property) {
+                                            if (property.id === 'ORIGINNODE') {
+                                                agents.push({ text: property.value, value: property.value });
+                                            }
+                                        });
+                                    }
+                                });
+                                return agents;
+                            }
+                            else {
+                                return [];
+                            }
                         }
                         else {
+                            _this.alertSrv.set("Data source problem", "Server response: " + result.status, "error");
                             return [];
                         }
                     });
                 };
                 IPMDatasource.prototype.metricFindQuery = function (agentType) {
+                    var _this = this;
                     var agents = [];
                     var aT = agentType.replace(/^.*-->  /, '');
                     var request = {
@@ -118,20 +132,25 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     };
                     return this.httpGet(request)
                         .then(function (result) {
-                        if (result.response.items) {
-                            result.response.items.forEach(function (item) {
-                                if (item.properties) {
-                                    item.properties.forEach(function (property) {
-                                        if (property.id === 'ORIGINNODE') {
-                                            agents.push({ text: property.value, value: property.value });
-                                        }
-                                    });
-                                }
-                            });
-                            //console.log(agents);
-                            return agents;
+                        if (typeof result.message == "undefined" && result.status == 200) {
+                            if (result.response.items) {
+                                result.response.items.forEach(function (item) {
+                                    if (item.properties) {
+                                        item.properties.forEach(function (property) {
+                                            if (property.id === 'ORIGINNODE') {
+                                                agents.push({ text: property.value, value: property.value });
+                                            }
+                                        });
+                                    }
+                                });
+                                return agents;
+                            }
+                            else {
+                                return [];
+                            }
                         }
                         else {
+                            _this.alertSrv.set("Data source problem", "Server response: " + result.status, "error");
                             return [];
                         }
                     });
@@ -163,16 +182,20 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     });
                 };
                 IPMDatasource.prototype.testDatasource = function () {
-                    return this.httpGet({ url: this.url }).then(function () {
-                        return { status: "success", message: "Data source is working", title: "Success" };
+                    return this.httpGet({ url: this.url }).then(function (result) {
+                        if (result.status == 200) {
+                            return { status: "success", message: "Data source connected", title: "Success" };
+                        }
+                        else {
+                            return { status: "error", message: "Data source connection problem. Server response code: " + result.status, title: "Error" };
+                        }
                     });
                 };
                 IPMDatasource.prototype.parse = function (results) {
                     var self = this;
                     var targetData = [];
                     var items = results.response.items;
-                    if (items.length > 0) {
-                        //console.log(results);
+                    if (items.length > 0 && typeof items[0].properties[1] !== 'undefined') {
                         items.forEach(function (item) {
                             item.alias = results.alias;
                             item.valueAttribute = results.valueAttribute;
@@ -214,16 +237,17 @@ System.register(['moment', 'lodash'], function(exports_1) {
                 };
                 IPMDatasource.prototype.getDatapoints = function (items, target) {
                     var series = [];
+                    var tzOffset = this.tzOffset;
                     if (target || target == 0) {
                         items.forEach(function (item) {
                             if (item.properties[2].value == target) {
-                                series.push([parseFloat(item.properties[0][item.valueAttribute]), moment_1.default(item.properties[1].value + '.000Z').valueOf()]);
+                                series.push([parseFloat(item.properties[0][item.valueAttribute]), moment_1.default(item.properties[1].value + tzOffset).valueOf()]);
                             }
                         });
                     }
                     else {
                         items.forEach(function (item) {
-                            series.push([parseFloat(item.properties[0][item.valueAttribute]), moment_1.default(item.properties[1].value + '.000Z').valueOf()]);
+                            series.push([parseFloat(item.properties[0][item.valueAttribute]), moment_1.default(item.properties[1].value + tzOffset).valueOf()]);
                         });
                     }
                     return series;
@@ -238,7 +262,12 @@ System.register(['moment', 'lodash'], function(exports_1) {
                         }
                     }
                     else {
-                        return items[0].properties[0].id;
+                        if (items[0].alias) {
+                            return items[0].alias;
+                        }
+                        else {
+                            return items[0].properties[0].id;
+                        }
                     }
                 };
                 IPMDatasource.prototype.httpGet = function (request) {
@@ -249,10 +278,12 @@ System.register(['moment', 'lodash'], function(exports_1) {
                         data: request.data,
                     };
                     return this.backendSrv.datasourceRequest(options).then(function (result) {
-                        return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute };
+                        if (result.status == 200) {
+                            return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute, status: result.status };
+                        }
                     }, function (err) {
-                        if (err.status >= 300) {
-                            throw { message: 'IPM Error: ' + err.data.msgText, config: err.config.params };
+                        if (err.status != 200) {
+                            return { message: err.data.msgText, stack: err.data, config: err.config, status: err.status };
                         }
                     });
                 };

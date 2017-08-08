@@ -1,76 +1,86 @@
 <query-editor-row query-ctrl="ctrl">
   <div class="gf-form-inline">
-    <div class="gf-form gf-form--grow">
-      <div class="gf-form">
-        <label class="gf-form-label query-keyword width-10">Agent Type</label>
-      </div>
-      <!--<input type="text" class="gf-form-input" ng-model="ctrl.target.target" spellcheck="false" ng-blur="ctrl.refresh()"></input>-->
-      <metric-segment-model custom="true"
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-9">Agent Type:</label>
+      <metric-segment-model custom="false"
                             get-options="ctrl.AgentTypes()"
                             property="ctrl.target.target"></metric-segment-model>
-      <div class="gf-form">
-        <label class="gf-form-label query-keyword width-10">Attribute Group</label>
-      </div>
-      <metric-segment-model get-options="ctrl.AttributeGroups()"
-                            on-change="ctrl.onChangeInternal1()"
+    </div>
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-10">Attribute Group:</label>
+      <metric-segment-model custom="false"
+                            get-options="ctrl.AttributeGroups()"
+                            on-change="ctrl.onChangeAttributeGroup()"
+                            placeholder="Select Attribute Group..."
                             property="ctrl.target.AttributeGroup"></metric-segment-model>
-      <div class="gf-form">
-        <label class="gf-form-label query-keyword width-10">Attribute</label>
-      </div>
-      <metric-segment-model get-options="ctrl.Attributes()"
+    </div>
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-6">Attribute:</label>
+      <metric-segment-model custom="false"
+                            get-options="ctrl.Attributes()"
                             on-change="ctrl.onChangeInternal()"
                             property="ctrl.target.Attribute"></metric-segment-model>
-      <div class="gf-form"
-           id="pk">
-        <label class="gf-form-label query-keyword width-10">Group by</label>
-        <metric-segment-model get-options="ctrl.PrimaryKey()"
-                              on-change="ctrl.onChangeInternal()"
-                              property="ctrl.target.PrimaryKey"></metric-segment-model>
-      </div>
+    </div>
+    <div class="gf-form"
+         ng-show="ctrl.showPrimaryKey">
+      <label class="gf-form-label query-keyword width-7">Group by:</label>
+      <metric-segment-model custom="false"
+                            get-options="ctrl.PrimaryKey()"
+                            on-change="ctrl.onChangeInternal()"
+                            property="ctrl.target.PrimaryKey"></metric-segment-model>
+    </div>
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-9">Agent Instance:</label>
+      <metric-segment-model get-options="ctrl.AgentInstances()"
+                            on-change="ctrl.onChangeInternal()"
+                            property="ctrl.target.AgentInstance"></metric-segment-model>
     </div>
   </div>
   <div class="gf-form-inline">
     <div class="gf-form gf-form--grow">
-      <label class="gf-form-label query-keyword width-10">Agent Instance</label>
-      <metric-segment-model get-options="ctrl.AgentInstances()"
-                            on-change="ctrl.onChangeInternal()"
-                            property="ctrl.target.AgentInstance"></metric-segment-model>
-      <label class="gf-form-label query-keyword width-12">Condition (optional)</label>
+      <label class="gf-form-label query-keyword width-9">Condition:</label>
       <input class="gf-form-input"
              ng-blur="ctrl.refresh()"
              ng-model="ctrl.target.Condition"
+             placeholder="Filter condition (optional)"
              spellcheck='false'
              type="text"></input>
     </div>
     <div class="gf-form gf-form--grow">
-      <label class="gf-form-label query-keyword width-8">Alias By</label>
+      <label class="gf-form-label query-keyword width-6">Alias By:</label>
       <input class="gf-form-input"
              ng-blur="ctrl.refresh()"
              ng-model="ctrl.target.alias"
-             placeholder="Naming pattern"
+             placeholder="Metric naming pattern (optional)"
              spellcheck="false"
              type="text"></input>
     </div>
   </div>
   <div class="gf-form-inline">
-    <label class="gf-form-label query-keyword width-10">Time Attribute</label>
-    <span class="gf-form-select-wrapper">
-      <select class="gf-form-input gf-size-auto"
-              ng-model="ctrl.target.timeAttribute"
-              ng-options="v.value as v.name for v in ctrl.timeAttributes"></select>
-    </span>
-    <label class="gf-form-label query-keyword width-12">Value Attribute</label>
-    <span class="gf-form-select-wrapper">
-      <select class="gf-form-input gf-size-auto"
-              ng-model="ctrl.target.valueAttribute"
-              ng-options="v.value as v.name for v in ctrl.valueAttributes"></select>
-    </span>
-    <label class="gf-form-label query-keyword width-12">Time Range 
-    <tip>Change to current value in order to ignore global time range filter and show only last sampled value (useful for ITMv6 data, not enabled for historical collection).</tip></label>
-    <span class="gf-form-select-wrapper">
-      <select class="gf-form-input gf-size-auto"
-              ng-model="ctrl.target.timeRangeAttribute"
-              ng-options="v.value as v.name for v in ctrl.timeRangeAttributes"></select>
-    </span>
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-9">Time Attribute:</label>
+      <span class="gf-form-select-wrapper">
+        <select class="gf-form-input gf-size-auto"
+                ng-model="ctrl.target.timeAttribute"
+                ng-options="v.value as v.name for v in ctrl.timeAttributes"></select>
+      </span>
+    </div>
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-9">Value Attribute:</label>
+      <span class="gf-form-select-wrapper">
+        <select class="gf-form-input gf-size-auto"
+                ng-model="ctrl.target.valueAttribute"
+                ng-options="v.value as v.name for v in ctrl.valueAttributes"></select>
+      </span>
+    </div>
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-10">Time Range: 
+      <tip>'Current value' setting ignores global time range filter and shows only last sampled value. Useful for attributes not enabled for historical collection.</tip></label>
+      <span class="gf-form-select-wrapper">
+        <select class="gf-form-input gf-size-auto"
+                ng-model="ctrl.target.timeRangeAttribute"
+                ng-options="v.value as v.name for v in ctrl.timeRangeAttributes"></select>
+      </span>
+    </div>
   </div>
 </query-editor-row>

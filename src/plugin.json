@@ -1,7 +1,7 @@
 {
   "name": "IBM APM",
   "type": "datasource",
-  "id": "ibm-apm",
+  "id": "ibm-apm-datasource",
 
   "metrics": true,
   "annotations": false,
@@ -9,11 +9,8 @@
   "info": {
     "author": {
       "name": "Rafal Szypulka",
-      "url": ""
+      "url": "https://github.com/rafal-szypulka"
     },
-    "links": [
-         {"name": "Project site", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm"}
-         ],
     "logos": {
       "small": "img/ibm-apm.png",
       "large": "img/ibm-apm.png"

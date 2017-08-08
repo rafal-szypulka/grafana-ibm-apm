@@ -7,21 +7,25 @@ class IPMDatasource {
   url: string;
   appId: any;
   pk: any;
+  alertSrv: any;
+  tzOffset: string;
 
-  constructor(instanceSettings, private $q, private backendSrv, private templateSrv) {
+  constructor(instanceSettings, private $q, private backendSrv, private templateSrv, alertSrv) {
     this.name = instanceSettings.name;
     this.backendSrv = backendSrv;
     this.url = instanceSettings.url;
-    this.name = instanceSettings.name;
+    this.alertSrv = alertSrv;
+    this.tzOffset = instanceSettings.jsonData.tzOffset;
   }
 
   query(options) {
     var self = this;
-    var rangeFrom = moment(options.range.from).utc().format('YYYYMMDDTHHmmss');
-    var rangeTo = moment(options.range.to).utc().format('YYYYMMDDTHHmmss');
+    var rangeFrom = moment(options.range.from).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
+    var rangeTo = moment(options.range.to).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
+    //this.alertSrv.set("date range",rangeFrom + ' -- ' + rangeTo + ' -- ' + self.tzOffset,"error");
 
     var requests = _.map(options.targets, target => {
-      if(target.timeRangeAttribute === 'current') {
+      if (target.timeRangeAttribute === 'current') {
         rangeFrom = '';
         rangeTo = '';
       }
@@ -52,8 +56,6 @@ class IPMDatasource {
       }
     });
 
-    // 
-    
     return this.$q(function (resolve, reject) {
       var mergedResults = {
         data: []
@@ -64,14 +66,19 @@ class IPMDatasource {
       });
       self.$q.all(promises).then((data) => {
         data.forEach(function (result) {
-          mergedResults.data = mergedResults.data.concat(self.parse(result));
+          if (typeof result.message == "undefined" && result.status == 200) {
+            mergedResults.data = mergedResults.data.concat(self.parse(result));
+          } else {
+            result.message = "Server Response: " + result.status + ", Message: " + result.message;
+            reject(result);
+          }
         });
         resolve(mergedResults);
       });
     });
   }
 
- getAgentTypes() {
+  getAgentTypes() {
     let request = {
       url: this.url + '/datasources'
     };
@@ -87,7 +94,7 @@ class IPMDatasource {
     return this.doSimpleHttpGet(request);
   }
 
- getAgentInstances(agentType) {
+  getAgentInstances(agentType) {
     var agents = []
     var aT = agentType.replace(/^.*-->  /, '');
     let request = {
@@ -96,26 +103,30 @@ class IPMDatasource {
 
     return this.httpGet(request)
       .then(result => {
-        if (result.response.items) {
-          result.response.items.forEach(function (item) {
-            if (item.properties) {
-              item.properties.forEach(function (property) {
-                if (property.id === 'ORIGINNODE') {
-                  agents.push({ text: property.value, value: property.value });
-                }
-              });
-            }
-          });
-          //console.log(agents);
-          return agents;
+        if (typeof result.message == "undefined" && result.status == 200) {
+          if (result.response.items) {
+            result.response.items.forEach(function (item) {
+              if (item.properties) {
+                item.properties.forEach(function (property) {
+                  if (property.id === 'ORIGINNODE') {
+                    agents.push({ text: property.value, value: property.value });
+                  }
+                });
+              }
+            });
+            return agents;
+          } else {
+            return [];
+          }
         } else {
+          this.alertSrv.set("Data source problem", "Server response: " + result.status, "error");
           return [];
         }
       });
   }
 
   metricFindQuery(agentType) {
-    var agents = [];    
+    var agents = []
     var aT = agentType.replace(/^.*-->  /, '');
     let request = {
       url: this.url + '/datasources/' + encodeURIComponent(aT) + '/datasets/msys/items?properties=all'
@@ -123,19 +134,23 @@ class IPMDatasource {
 
     return this.httpGet(request)
       .then(result => {
-        if (result.response.items) {
-          result.response.items.forEach(function (item) {
-            if (item.properties) {
-              item.properties.forEach(function (property) {
-                if (property.id === 'ORIGINNODE') {
-                  agents.push({ text: property.value, value: property.value });
-                }
-              });
-            }
-          });
-          //console.log(agents);
-          return agents;
+        if (typeof result.message == "undefined" && result.status == 200) {
+          if (result.response.items) {
+            result.response.items.forEach(function (item) {
+              if (item.properties) {
+                item.properties.forEach(function (property) {
+                  if (property.id === 'ORIGINNODE') {
+                    agents.push({ text: property.value, value: property.value });
+                  }
+                });
+              }
+            });
+            return agents;
+          } else {
+            return [];
+          }
         } else {
+          this.alertSrv.set("Data source problem", "Server response: " + result.status, "error");
           return [];
         }
       });
@@ -172,8 +187,12 @@ class IPMDatasource {
   }
 
   testDatasource() {
-    return this.httpGet({ url: this.url }).then(() => {
-      return { status: "success", message: "Data source is working", title: "Success" };
+    return this.httpGet({ url: this.url }).then(result => {
+      if (result.status == 200) {
+        return { status: "success", message: "Data source connected", title: "Success" };
+      } else {
+        return { status: "error", message: "Data source connection problem. Server response code: " + result.status, title: "Error" };
+      }
     });
   }
 
@@ -181,8 +200,7 @@ class IPMDatasource {
     var self = this;
     var targetData = [];
     var items = results.response.items;
-    if (items.length > 0) {
-      //console.log(results);
+    if (items.length > 0 && typeof items[0].properties[1] !== 'undefined') {
       items.forEach(item => {
         item.alias = results.alias;
         item.valueAttribute = results.valueAttribute;
@@ -224,15 +242,16 @@ class IPMDatasource {
 
   getDatapoints(items, target) {
     var series = [];
+    var tzOffset = this.tzOffset;
     if (target || target == 0) {
       items.forEach(function (item) {
         if (item.properties[2].value == target) {
-            series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + '.000Z').valueOf()]);
-         }
-       });
+          series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + tzOffset).valueOf()]);
+        }
+      });
     } else {
       items.forEach(function (item) {
-          series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + '.000Z').valueOf()]);
+        series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + tzOffset).valueOf()]);
       });
     }
     return series;
@@ -246,7 +265,11 @@ class IPMDatasource {
         return items[0].properties[0].id + ":" + value;
       }
     } else {
-      return items[0].properties[0].id;
+      if (items[0].alias) {
+        return items[0].alias;
+      } else {
+        return items[0].properties[0].id;
+      }
     }
   }
 
@@ -258,18 +281,19 @@ class IPMDatasource {
       data: request.data,
     };
 
-    return this.backendSrv.datasourceRequest(options).then(function(result) {
-      return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute };
-    }, function (err) {    
-      if (err.status >= 300) {
-          throw { message: 'IPM Error: ' + err.data.msgText, config: err.config.params };
-        }
-    });    
+    return this.backendSrv.datasourceRequest(options).then(function (result) {
+      if (result.status == 200) {
+        return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute, status: result.status };
+      }
+    }, function (err) {
+      if (err.status != 200) {
+        return { message: err.data.msgText, stack: err.data, config: err.config, status: err.status };
+      }
+    });
   }
 
-
- doSimpleHttpGet(request) {
-   return this.httpGet(request)
+  doSimpleHttpGet(request) {
+    return this.httpGet(request)
       .then(result => {
         if (result.response.items) {
           return result.response.items;
@@ -277,7 +301,7 @@ class IPMDatasource {
           return [];
         }
       });
- }
+  }
 
 }
 

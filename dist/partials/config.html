@@ -1,2 +1,11 @@
 <datasource-http-settings current="ctrl.current"
                           suggest-url="http://&lt;host&gt;:&lt;port&gt;/ibm/tivoli/rest/providers/itm.&lt;TEMS_NAME_OR_KD8&gt;"></datasource-http-settings>
+<div class="gf-form-group max-width-20">
+  <div class="gf-form">
+    <label class="gf-form-label width-11">ITMv6 UTC offset 
+    <tip>UTC time zone offest. Use it only for ITMv6 data source.<br> For APMv8, set it as 'none'.</tip></label>
+    <select class="gf-form-input"
+            ng-model="ctrl.current.jsonData.tzOffset"
+            ng-options="f.value as f.name for f in ctrl.tzOffset"></select>
+  </div>
+</div>

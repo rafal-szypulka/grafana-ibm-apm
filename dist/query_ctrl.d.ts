@@ -11,6 +11,7 @@ declare class IPMQueryCtrl extends QueryCtrl {
     atr: any[];
     pk: any[];
     ai: any[];
+    showPrimaryKey: boolean;
     timeAttributes: {
         name: string;
         value: string;
@@ -36,6 +37,6 @@ declare class IPMQueryCtrl extends QueryCtrl {
     getPrimaryKey(): any;
     PrimaryKey(): any;
     onChangeInternal(): void;
-    onChangeInternal1(): void;
+    onChangeAttributeGroup(): void;
 }
 export { IPMQueryCtrl };
