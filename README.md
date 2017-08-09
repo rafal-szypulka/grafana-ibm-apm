@@ -4,11 +4,16 @@ Author: Rafal Szypulka
 
 Contact: rafal.szypulka@pl.ibm.com
 
-Revision: 0.3
+Revision: 0.4
 
 **What's new:**
 
-- 0.3 - New field **Time Range** in the panel query editor. If set to *Current value*, then panel query will ignore global dashboard time filter and show only the current value of the metric. Use it only for singlestat and table panels. 
+- 0.4
+ -  Better error handling.
+ -  Cosmetic changes in panel query editor.
+ -  UTC time zone offset option for ITMv6 HUB TEMS in the datasource configuration. Change the default settings only if HUB TEMS is located in non UTC time zone **and** you access Grafana dashboard from the timezone different than your HUB TEMS - in that case set UTC offset to HUB TEMS time zone.
+- 0.3 
+ - New field **Time Range** in the panel query editor. If set to **Current value**, then panel query will ignore global dashboard time filter and show only the current value of the metric. Use it only for singlestat and table panels. 
 
 Contents 
 ========
