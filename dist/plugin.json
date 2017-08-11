@@ -17,7 +17,7 @@
     },
 	"links": [
 	      {"name": "GitHub", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm"},
-	      {"name": "Docs", "url": "http://docs.grafana-zabbix.org"},
+	      {"name": "Docs", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm/blob/master/README.md"},
 	      {"name": "License", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm/blob/master/LICENSE"}
 	    ],
     "dependencies": {
