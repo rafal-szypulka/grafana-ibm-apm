@@ -64,7 +64,7 @@ Download
 
 The code is provided as-is and it is not supported by IBM.
 
-[grafana-ibm-apm-v0.3.tar.gz](./grafana-ibm-apm-v0.3.tar.gz)
+[grafana-ibm-apm-v0.4.tar.gz](./download/grafana-ibm-apm-v0.4.tar.gz)
 
 Installation instructions are in [chapter 7](#ibm-apm-plugin-installation).
 
@@ -210,7 +210,7 @@ Full installation and configuration process (Grafana, Nginx and IBM APM plugin) 
 IBM APM plugin installation
 ===========================
 
-1).  Download [grafana-ibm-apm-v0.3.tar.gz](./grafana-ibm-apm-v0.3.tar.gz)
+1).  Download [grafana-ibm-apm-v0.4.tar.gz](./download/grafana-ibm-apm-v0.4.tar.gz)
 and unpack it in Grafana plugin directory.
 
 For Grafana installed using yum/rpm, it is: `/var/lib/grafana/plugins`.
