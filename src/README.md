@@ -2,7 +2,7 @@
 The IBM APM plugin collects data from the IBM APM metrics REST API and allows you to visualize it on Grafana dashboards. The plugin supports:
 
 - IBM Tivoli Monitoring 6.x
-- IBM SmartCloud Application performance Management 7.x 
+- IBM SmartCloud Application Performance Management 7.x 
 - IBM Performance Managament 8.x (only on premises version)
 
 ### Live Demo
