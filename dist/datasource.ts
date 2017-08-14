@@ -95,7 +95,7 @@ class IPMDatasource {
   }
 
   getAgentInstances(agentType) {
-    var agents = []
+    var agents = [];
     var aT = agentType.replace(/^.*-->  /, '');
     let request = {
       url: this.url + '/datasources/' + encodeURIComponent(aT) + '/datasets/msys/items?properties=all'
@@ -126,7 +126,7 @@ class IPMDatasource {
   }
 
   metricFindQuery(agentType) {
-    var agents = []
+    var agents = [];
     var aT = agentType.replace(/^.*-->  /, '');
     let request = {
       url: this.url + '/datasources/' + encodeURIComponent(aT) + '/datasets/msys/items?properties=all'

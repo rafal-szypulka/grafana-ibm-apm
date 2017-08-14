@@ -20,6 +20,7 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 /** @ngInject **/
                 function IPMQueryCtrl($scope, $injector) {
                     _super.call(this, $scope, $injector);
+                    //showPrimaryKey = true;
                     this.timeAttributes = [
                         { name: 'TIMESTAMP', value: 'TIMESTAMP' },
                         { name: 'WRITETIME', value: 'WRITETIME' }
@@ -137,7 +138,6 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                             _this.showPrimaryKey = true;
                         }
                     });
-                    this.refresh();
                 };
                 IPMQueryCtrl.templateUrl = 'partials/query.editor.html';
                 return IPMQueryCtrl;

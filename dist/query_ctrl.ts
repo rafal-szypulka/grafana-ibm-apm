@@ -15,6 +15,8 @@ class IPMQueryCtrl extends QueryCtrl {
   ai: any[];   //Agent Instances
   showPrimaryKey: boolean;
 
+  //showPrimaryKey = true;
+
    timeAttributes = [
         { name: 'TIMESTAMP', value: 'TIMESTAMP' },
         { name: 'WRITETIME', value: 'WRITETIME' }
@@ -144,11 +146,11 @@ class IPMQueryCtrl extends QueryCtrl {
        if (_.isEmpty(this.pk)) {
          this.showPrimaryKey = false;
        } else {
-         this.showPrimaryKey = true;
+         this.showPrimaryKey = true;     
        }
      });
-    this.refresh();
   }
 }
+
 
 export { IPMQueryCtrl };

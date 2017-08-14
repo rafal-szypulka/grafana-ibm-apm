@@ -22,9 +22,10 @@
                             property="ctrl.target.Attribute"></metric-segment-model>
     </div>
     <div class="gf-form"
+         ng-init="ctrl.onChangeAttributeGroup()"
          ng-show="ctrl.showPrimaryKey">
       <label class="gf-form-label query-keyword width-7">Group by:</label>
-      <metric-segment-model custom="false"
+      <metric-segment-model custom="true"
                             get-options="ctrl.PrimaryKey()"
                             on-change="ctrl.onChangeInternal()"
                             property="ctrl.target.PrimaryKey"></metric-segment-model>
@@ -47,7 +48,7 @@
              type="text"></input>
     </div>
     <div class="gf-form gf-form--grow">
-      <label class="gf-form-label query-keyword width-6">Alias By:</label>
+      <label class="gf-form-label query-keyword width-5">Alias:</label>
       <input class="gf-form-input"
              ng-blur="ctrl.refresh()"
              ng-model="ctrl.target.alias"
