@@ -54,7 +54,14 @@ Documentation: [*http://docs.grafana.org/*](http://docs.grafana.org/)
 
 Plugins: *<https://grafana.com/plugins>* (or search for Grafana on GitHub)
 
-IBM APM plugin adds Grafana support for APMv8 (on premises version only) and ITMv6/SCAPMv7. The plugin uses metrics REST API to collect data directly from APMv8 and ITMv6
+
+IBM APM plugin adds Grafana support for:
+
+- IBM Tivoli Monitoring 6.x
+- IBM SmartCloud Application Performance Management 7.x 
+- IBM Performance Managament 8.x (only on premises version)
+
+The plugin uses metrics REST API to collect data directly from APMv8 and ITMv6
 and show on the Grafana dashboard.
 
 ![](./media/Sample_LinuxOS_dashboard_animated.gif)
