@@ -15,6 +15,11 @@
       "small": "img/ibm-apm.png",
       "large": "img/ibm-apm.png"
     },
+	"links": [
+	      {"name": "GitHub", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm"},
+	      {"name": "Docs", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm/blob/master/README.md"},
+	      {"name": "License", "url": "https://github.com/rafal-szypulka/grafana-ibm-apm/blob/master/LICENSE.txt"}
+	    ],
     "dependencies": {
       "grafanaVersion": "^3.0.1",
       "angular": "^1.5.6",
