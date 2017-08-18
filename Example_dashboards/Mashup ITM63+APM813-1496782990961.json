@@ -5,7 +5,7 @@
       "label": "APM813",
       "description": "",
       "type": "datasource",
-      "pluginId": "ibm-apm",
+      "pluginId": "ibm-apm-datasource",
       "pluginName": "IBM APM"
     },
     {
