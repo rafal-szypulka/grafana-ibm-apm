@@ -56,8 +56,9 @@ class IPMQueryCtrl extends QueryCtrl {
     } else {
       return this.datasource.getAgentTypes()
         .then(items => {
-          return items;
-        });
+	return items.sort(function(a,b) {
+	return (a.description > b.description ? 1 : -1 );
+	})});
     }
   }
 
@@ -73,8 +74,9 @@ class IPMQueryCtrl extends QueryCtrl {
     let target = this.target.target;
     return this.datasource.getAttributeGroups(target)
       .then(items => {
-        return items;
-      });
+	return items.sort(function(a,b) {
+	return (a.description > b.description ? 1 : -1 );
+	})});
   }
 
   AttributeGroups() {
@@ -90,8 +92,9 @@ class IPMQueryCtrl extends QueryCtrl {
     let name = this.target.target;
     return this.datasource.getAgentInstances(name)
       .then(items => {
-        return items;
-      });
+	return items.sort(function(a,b) {
+		return (a.text < b.text ? 1 : -1 );
+	})});
   }
 
   AgentInstances() {
@@ -107,8 +110,9 @@ class IPMQueryCtrl extends QueryCtrl {
     let aG = this.target.AttributeGroup;
     return this.datasource.getAttributes(target, aG)
       .then(items => {
-        return items;
-      });
+	return items.sort(function(a,b) {
+	return (a.label > b.label ? 1 : -1 );
+	})});
   }
 
   Attributes() {
@@ -122,9 +126,10 @@ class IPMQueryCtrl extends QueryCtrl {
   getPrimaryKey() {
     let target = this.target.target;
     let aG = this.target.AttributeGroup;
-    return this.datasource.getPrimaryKey(target, aG)
-      .then(items => {
-        this.pk = items;
+    return this.datasource.getPrimaryKey(target, aG).then(items => {
+        this.pk = items.sort(function(a,b) {
+  		return (a.label > b.label ? 1 : -1 );
+	});
         return items;
       });
   }
@@ -135,6 +140,11 @@ class IPMQueryCtrl extends QueryCtrl {
         return { text: item.label + '  -->  ' + item.id, value: item.id };
       });
     });
+  }
+
+  onChangeAgentType() {
+    
+    this.refresh();
   }
 
   onChangeInternal() {
