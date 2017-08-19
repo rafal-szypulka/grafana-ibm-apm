@@ -36,6 +36,7 @@ declare class IPMQueryCtrl extends QueryCtrl {
     Attributes(): any;
     getPrimaryKey(): any;
     PrimaryKey(): any;
+    onChangeAgentType(): void;
     onChangeInternal(): void;
     onChangeAttributeGroup(): void;
 }

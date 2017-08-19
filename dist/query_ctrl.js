@@ -53,7 +53,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     else {
                         return this.datasource.getAgentTypes()
                             .then(function (items) {
-                            return items;
+                            return items.sort(function (a, b) {
+                                return (a.description > b.description ? 1 : -1);
+                            });
                         });
                     }
                 };
@@ -68,7 +70,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     var target = this.target.target;
                     return this.datasource.getAttributeGroups(target)
                         .then(function (items) {
-                        return items;
+                        return items.sort(function (a, b) {
+                            return (a.description > b.description ? 1 : -1);
+                        });
                     });
                 };
                 IPMQueryCtrl.prototype.AttributeGroups = function () {
@@ -83,7 +87,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     var name = this.target.target;
                     return this.datasource.getAgentInstances(name)
                         .then(function (items) {
-                        return items;
+                        return items.sort(function (a, b) {
+                            return (a.text < b.text ? 1 : -1);
+                        });
                     });
                 };
                 IPMQueryCtrl.prototype.AgentInstances = function () {
@@ -98,7 +104,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     var aG = this.target.AttributeGroup;
                     return this.datasource.getAttributes(target, aG)
                         .then(function (items) {
-                        return items;
+                        return items.sort(function (a, b) {
+                            return (a.label > b.label ? 1 : -1);
+                        });
                     });
                 };
                 IPMQueryCtrl.prototype.Attributes = function () {
@@ -112,9 +120,10 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     var _this = this;
                     var target = this.target.target;
                     var aG = this.target.AttributeGroup;
-                    return this.datasource.getPrimaryKey(target, aG)
-                        .then(function (items) {
-                        _this.pk = items;
+                    return this.datasource.getPrimaryKey(target, aG).then(function (items) {
+                        _this.pk = items.sort(function (a, b) {
+                            return (a.label > b.label ? 1 : -1);
+                        });
                         return items;
                     });
                 };
@@ -124,6 +133,9 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                             return { text: item.label + '  -->  ' + item.id, value: item.id };
                         });
                     });
+                };
+                IPMQueryCtrl.prototype.onChangeAgentType = function () {
+                    this.refresh();
                 };
                 IPMQueryCtrl.prototype.onChangeInternal = function () {
                     this.refresh();
