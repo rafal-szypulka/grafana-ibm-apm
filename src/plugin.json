@@ -1,7 +1,7 @@
 {
   "name": "IBM APM",
   "type": "datasource",
-  "id": "rszypulka-ibm-apm-datasource",
+  "id": "ibm-apm-datasource",
 
   "metrics": true,
   "annotations": false,
