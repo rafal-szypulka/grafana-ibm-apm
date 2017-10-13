@@ -34,6 +34,7 @@ System.register([], function(exports_1) {
                     ];
                     this.current.jsonData = this.current.jsonData || {};
                     this.current.jsonData.tzOffset = this.current.jsonData.tzOffset || '+0000';
+                    this.current.jsonData.sendHttpDelete = this.current.jsonData.sendHttpDelete || 1;
                 }
                 IPMConfigCtrl.templateUrl = 'partials/config.html';
                 return IPMConfigCtrl;

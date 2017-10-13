@@ -3,9 +3,18 @@
 <div class="gf-form-group max-width-20">
   <div class="gf-form">
     <label class="gf-form-label width-11">ITMv6 UTC offset 
-    <tip>UTC time zone offest. Use it only for ITMv6 data source.<br> For APMv8, set it as 'none'.</tip></label>
+    <info-popover>UTC time zone offest. Use it only for ITMv6 data source.<br> For APMv8, set it as 'none'.</info-popover></label>
     <select class="gf-form-input"
             ng-model="ctrl.current.jsonData.tzOffset"
             ng-options="f.value as f.name for f in ctrl.tzOffset"></select>
+
+  </div>
+  <div class="gf-form-inline">
+    <gf-form-switch class="gf-form"
+                    ng-model="ctrl.current.jsonData.sendHttpDelete""
+                    label="Dellocate dataset after every metric query (recommended)" tooltip="Any CURI REST GET requests for metrics requires that the request issuer also send a DELETE request when the payload received from the previous GET request is no longer required by the client."
+                    checked="ctrl.current.jsonData.sendHttpDelete" switch-class="max-width-6">
+    </gf-form-switch>
+
   </div>
 </div>

@@ -7,6 +7,7 @@ export class IPMConfigCtrl {
     constructor($scope) {
         this.current.jsonData = this.current.jsonData || {};
         this.current.jsonData.tzOffset = this.current.jsonData.tzOffset || '+0000';
+        this.current.jsonData.sendHttpDelete = this.current.jsonData.sendHttpDelete || 1;
     }
 
     tzOffset = [

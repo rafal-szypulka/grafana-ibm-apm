@@ -4,13 +4,15 @@ Author: Rafal Szypulka
 
 Contact: rafal.szypulka@pl.ibm.com
 
-Revision: 0.4
+Revision: 0.5
 
 **What's new:**
 
+- 0.5
+  -  Added datasource configuration option to deallocate dataset on ITM/APM server after every metric query. It is highly recommended to have it enabled all the time. Lack of datasource deallocation requests may cause memory leak and OutOfMemory exceptions on ITM/APM server. This plugin update requires also change in the Grafana server backend. See updated installation instructions for details.
 - 0.4
   -  Better error handling.
-  -  Cosmetic changes in panel query editor.
+  -  Cosmetic changes in the panel query editor.
   -  UTC time zone offset option for ITMv6 HUB TEMS in the datasource configuration. Change the default settings only if HUB TEMS is located in non UTC time zone **and** you access Grafana dashboard from the timezone different than your HUB TEMS - in that case set UTC offset to HUB TEMS time zone.
 - 0.3 
   - New field **Time Range** in the panel query editor. If set to **Current value**, then panel query will ignore global dashboard time filter and show only the current value of the metric. Use it only for singlestat and table panels. 
@@ -20,23 +22,21 @@ Contents
 
 [**1. Introduction**](#introduction)
 
-[**2. Download**](#download)
+[**2. Demo environment**](#demo-environment)
 
-[**3. Demo environment**](#demo-environment)
+[**3. Example dashboards**](#example-dashboards)
 
-[**4. Example dashboards**](#example-dashboards)
+[**4. How to create a new panel using the IBM APM datasource**](#how-to-create-a-new-panel-using-the-ibm-apm-datasource)
 
-[**5. How to create a new panel using the IBM APM datasource**](#how-to-create-a-new-panel-using-the-ibm-apm-datasource)
+[**5. Grafana installation**](#grafana-installation)
 
-[**6. Grafana installation**](#grafana-installation)
+[**6. IBM APM plugin installation**](#ibm-apm-plugin-installation)
 
-[**7. IBM APM plugin installation**](#ibm-apm-plugin-installation)
+[**7. IBM APM data source configuration**](#ibm-apm-data-source-configuration)
 
-[**8. IBM APM data source configuration**](#ibm-apm-data-source-configuration)
+[**8. Templating**](#templating)
 
-[**9. Templating**](#templating)
-
-[**10. Troubleshooting**](#troubleshooting)
+[**9. Troubleshooting**](#troubleshooting)
 
 Introduction
 ============
@@ -57,23 +57,16 @@ Plugins: *<https://grafana.com/plugins>* (or search for Grafana on GitHub)
 
 IBM APM plugin adds Grafana support for:
 
-- IBM Tivoli Monitoring 6.x
+- IBM Tivoli Monitoring 6.x and IBM Omagamon
 - IBM SmartCloud Application Performance Management 7.x 
 - IBM Performance Managament 8.x (only on premises version)
+- IBM Cloud Application Performance Management Private
 
 The plugin uses metrics REST API to collect data directly from APMv8 and ITMv6
 and show on the Grafana dashboard.
 
 ![](./media/Sample_LinuxOS_dashboard_animated.gif)
 
-Download
-========
-
-The code is provided as-is and it is not supported by IBM.
-
-[grafana-ibm-apm-v0.4.tar.gz](./download/grafana-ibm-apm-v0.4.tar.gz)
-
-Installation instructions are in [chapter 7](#ibm-apm-plugin-installation).
 
 Demo environment
 ===================
@@ -155,7 +148,7 @@ disk IO metric for specific disk collected from two different servers.
 ![](./media/image6.png)
 4.  Click on the **Panel Title** bar and select **Edit**.
 ![](./media/image7.png)
-5.  Click the **Panel data source** list and select the APM data source. In this example it is named *APMv8.1.3 skarsv100*.
+5.  Click the **Data source** list and select the APM data source. In this example it is named *APMv8.1.3*.
 ![](./media/image8.png)
 6.  Select **Agent Type** (you can type agent code or agent type name to
     search for supported agent type or scroll down a dropdown list).
@@ -203,7 +196,7 @@ If you plan to access the REST API of the latest version of APMv8 (8.1.3 if009 a
 - Disable the Referer HTTP header in the browser settings. Firefox: in the about:config page, search for Network.http.sendRefererHeader and set it to 0. Chrome requires a custom extension like [Referer Control](https://chrome.google.com/webstore/detail/referer-control/hnkcfpcejkafcihlgbojoidoihckciin).
 
 - Install Nginx and access the Grafana URL through Nginx acting as a reverse proxy.
-Nginx should be configured to clear the Referer header. In the nginx.conf modify location section and set it (if Nginx is installed locally on Grafana server) to:
+Nginx should be configured either to clear the Referer header or set it as APM/ITM URL with port http://xxx.xxx.xxx.xxx:xxx. In the nginx.conf modify location section and set it (if Nginx is installed locally on Grafana server) to:
 
 ```
         location / {
@@ -216,24 +209,36 @@ Full installation and configuration process (Grafana, Nginx and IBM APM plugin) 
 
 IBM APM plugin installation
 ===========================
+Latest verion of the plugin is always available on this GitHub page. It can be also installed from the Grafana plugin repository
 
-1).  Download [grafana-ibm-apm-v0.4.tar.gz](./download/grafana-ibm-apm-v0.4.tar.gz)
-and unpack it in Grafana plugin directory.
-
-For Grafana installed using yum/rpm, it is: `/var/lib/grafana/plugins`.
-To verify, check the following path after plugin unpack:
-`
-/var/lib/grafana/plugins/grafana-ibm-apm/dist/datasource.js
-`
-
-Other method (if Grafana has an internet access) is to clone GitHub repository using:
+1).  To install the plugin from GitHub, go to your Grafana plugin directory (for Grafana installed using yum/rpm, it is: `/var/lib/grafana/plugins`) and simply clone the GitHub repository. 
 
 ```
 cd /var/lib/grafana/plugins/
 git clone https://github.com/rafal-szypulka/grafana-ibm-apm
+
+```
+Another option is to install plugin using Grafana CLI:
+
+```
+grafana-cli plugins install ibm-apm-datasource
 ```
 
-2).  Restart Grafana. On RedHat/Centos run:
+3). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from [here](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc), or buid it by yourself.
+
+Here are the steps to build modified grafana-server binary:
+
+- install Go langguage compliler and download Grafana sources using the steps documented [here](http://docs.grafana.org/project/building_from_source/). 
+- change the file `ds_proxy.go` by commenting these two lines:
+
+```
+req.Header.Del("Cookie")
+req.Header.Del("Set-Cookie")
+```
+
+- compile and build grafana-server binary using the steps documented [here](http://docs.grafana.org/project/building_from_source/) and replace the original grafana-server file with the new one.
+
+4). Restart Grafana. On RedHat/Centos run:
 
 `systemctl restart grafana-server`
 
@@ -256,7 +261,7 @@ http://&lt;apm\_server\_hostname&gt;:8090/ibm/tivoli/rest/providers/itm.KD8
 
 -   ITMv6/SCAPMv7
 
-http://&lt;teps\_server\_hostname&gt;:15200/ibm/tivoli/rest/providers/itm.&lt;TEMS\_NAME&gt;
+http://&lt;TEPS\_server\_hostname&gt;:15200/ibm/tivoli/rest/providers/itm.&lt;TEMS\_NAME&gt;
 
 Select **Basic Auth** and **With credentials** and specify the user name
 

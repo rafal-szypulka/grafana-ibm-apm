@@ -20,6 +20,7 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     this.url = instanceSettings.url;
                     this.alertSrv = alertSrv;
                     this.tzOffset = instanceSettings.jsonData.tzOffset;
+                    this.sendHttpDelete = instanceSettings.jsonData.sendHttpDelete;
                 }
                 IPMDatasource.prototype.query = function (options) {
                     var _this = this;
@@ -32,18 +33,18 @@ System.register(['moment', 'lodash'], function(exports_1) {
                             rangeFrom = '';
                             rangeTo = '';
                         }
+                        var refId = Math.floor(new Date().valueOf() * Math.random());
                         return {
                             url: _this.url + '/datasources/' + encodeURIComponent(target.target) + '/datasets/' + target.AttributeGroup + '/items',
                             alias: _this.templateSrv.replace(target.alias, options.scopedVars),
                             valueAttribute: target.valueAttribute,
                             params: {
                                 param_SourceToken: _this.templateSrv.replace(target.AgentInstance, options.scopedVars),
-                                clearCache: 'true',
                                 optimize: 'true',
                                 param_Time: rangeFrom + '--' + rangeTo,
-                                param_NoCache: 'false',
                                 properties: _this.templateSrv.replace(target.Attribute, options.scopedVars) + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
                                 condition: _this.templateSrv.replace(target.Condition, options.scopedVars),
+                                param_refId: refId
                             }
                         };
                     });
@@ -271,14 +272,25 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     }
                 };
                 IPMDatasource.prototype.httpGet = function (request) {
+                    var self = this;
                     var options = {
                         method: "get",
                         url: request.url,
                         params: request.params,
                         data: request.data,
                     };
+                    var urlReplaced = request.url.search(/\items/) >= 0;
                     return this.backendSrv.datasourceRequest(options).then(function (result) {
                         if (result.status == 200) {
+                            if (urlReplaced && self.sendHttpDelete) {
+                                var urlForDelete = request.url.replace(/\/items/, '');
+                                var options = {
+                                    method: "delete",
+                                    url: urlForDelete,
+                                    params: request.params,
+                                };
+                                self.backendSrv.datasourceRequest(options);
+                            }
                             return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute, status: result.status };
                         }
                     }, function (err) {

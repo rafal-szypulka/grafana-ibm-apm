@@ -9,6 +9,7 @@ class IPMDatasource {
   pk: any;
   alertSrv: any;
   tzOffset: string;
+  sendHttpDelete: boolean;
 
   constructor(instanceSettings, private $q, private backendSrv, private templateSrv, alertSrv) {
     this.name = instanceSettings.name;
@@ -16,12 +17,14 @@ class IPMDatasource {
     this.url = instanceSettings.url;
     this.alertSrv = alertSrv;
     this.tzOffset = instanceSettings.jsonData.tzOffset;
+    this.sendHttpDelete = instanceSettings.jsonData.sendHttpDelete;
   }
 
   query(options) {
     var self = this;
     var rangeFrom = moment(options.range.from).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
     var rangeTo = moment(options.range.to).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
+    
     //this.alertSrv.set("date range",rangeFrom + ' -- ' + rangeTo + ' -- ' + self.tzOffset,"error");
 
     var requests = _.map(options.targets, target => {
@@ -29,18 +32,18 @@ class IPMDatasource {
         rangeFrom = '';
         rangeTo = '';
       }
+      var refId = Math.floor(new Date().valueOf()* Math.random());
       return {
         url: this.url + '/datasources/' + encodeURIComponent(target.target) + '/datasets/' + target.AttributeGroup + '/items',
         alias: this.templateSrv.replace(target.alias, options.scopedVars),
         valueAttribute: target.valueAttribute,
         params: {
           param_SourceToken: this.templateSrv.replace(target.AgentInstance, options.scopedVars),
-          clearCache: 'true',
           optimize: 'true',
           param_Time: rangeFrom + '--' + rangeTo,
-          param_NoCache: 'false',
           properties: this.templateSrv.replace(target.Attribute, options.scopedVars) + ',' + target.timeAttribute + ',' + (target.PrimaryKey || ''),
           condition: this.templateSrv.replace(target.Condition, options.scopedVars),
+          param_refId: refId
           // param_Time_Summarized: 'H'
         }
       };
@@ -274,16 +277,28 @@ class IPMDatasource {
   }
 
   httpGet(request) {
+    var self = this;
     var options: any = {
       method: "get",
       url: request.url,
       params: request.params,
       data: request.data,
+      
     };
+    var urlReplaced = request.url.search(/\items/) >= 0;
 
     return this.backendSrv.datasourceRequest(options).then(function (result) {
       if (result.status == 200) {
-        return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute, status: result.status };
+        if (urlReplaced && self.sendHttpDelete) {
+          var urlForDelete = request.url.replace(/\/items/, '');
+          var options: any = {
+            method: "delete",
+            url: urlForDelete,
+            params: request.params,
+          };
+          self.backendSrv.datasourceRequest(options);
+        }
+        return { response: result.data, alias: request.alias, valueAttribute: request.valueAttribute, status: result.status }
       }
     }, function (err) {
       if (err.status != 200) {
@@ -302,7 +317,6 @@ class IPMDatasource {
         }
       });
   }
-
 }
 
 export { IPMDatasource };
