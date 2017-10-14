@@ -4,12 +4,12 @@ Author: Rafal Szypulka
 
 Contact: rafal.szypulka@pl.ibm.com
 
-Revision: 0.5
+Revision: 0.6
 
 **What's new:**
 
-- 0.5
-  -  Added datasource configuration option to deallocate dataset on ITM/APM server after every metric query. It is highly recommended to have it enabled all the time. Lack of datasource deallocation requests may cause memory leak and OutOfMemory exceptions on ITM/APM server. This plugin update requires also change in the Grafana server backend. See updated installation instructions for details.
+- 0.6
+  -  Added datasource configuration option to deallocate dataset on ITM/APM server after every metric query. It is highly recommended to have it enabled all the time. Lack of datasource deallocation requests may cause memory leak and OutOfMemory exceptions on ITM/APM server. This plugin update requires also change in the Grafana server backend. See updated installation instructions and datasource configuration for details.
 - 0.4
   -  Better error handling.
   -  Cosmetic changes in the panel query editor.
@@ -173,6 +173,7 @@ disk IO metric for specific disk collected from two different servers.
     legend in the **Alias field**, so we can easily distinguish which line
     belongs to a particular agent. Add the **Condition** and **Alias** as shown in the example below.
 ![](./media/image12.png)
+
 12.  We are almost done! Add a proper chart title in General tab.
 ![](./media/image13.png)
 13.  Customize the legend in the Legend tab to make it look better and
@@ -224,11 +225,11 @@ Another option is to install plugin using Grafana CLI:
 grafana-cli plugins install ibm-apm-datasource
 ```
 
-3). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from [here](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc), or buid it by yourself.
+2). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from [here](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc), or build it by yourself.
 
 Here are the steps to build modified grafana-server binary:
 
-- install Go langguage compliler and download Grafana sources using the steps documented [here](http://docs.grafana.org/project/building_from_source/). 
+- install Go language compiler and download Grafana sources using the steps documented [here](http://docs.grafana.org/project/building_from_source/). 
 - change the file `ds_proxy.go` by commenting these two lines:
 
 ```
@@ -238,7 +239,7 @@ req.Header.Del("Set-Cookie")
 
 - compile and build grafana-server binary using the steps documented [here](http://docs.grafana.org/project/building_from_source/) and replace the original grafana-server file with the new one.
 
-4). Restart Grafana. On RedHat/Centos run:
+3). Restart Grafana. On RedHat/Centos run:
 
 `systemctl restart grafana-server`
 
@@ -257,19 +258,22 @@ Specify the REST API URL:
 
 -   APMv8
 
-http://&lt;apm\_server\_hostname&gt;:8090/ibm/tivoli/rest/providers/itm.KD8
+`http://<apm_server_hostname>:8090/ibm/tivoli/rest/providers/itm.KD8`
 
 -   ITMv6/SCAPMv7
 
-http://&lt;TEPS\_server\_hostname&gt;:15200/ibm/tivoli/rest/providers/itm.&lt;TEMS\_NAME&gt;
+`http://<TEPS_server_hostname>:15200/ibm/tivoli/rest/providers/itm.<TEMS_NAME>`
+
+**Note:** If you connect IBM APM datasource to Hub TEMS with HA configuration or `<TEMS_NAME>` contains non-alphanumeric characters, then define Domain Override in TEPS Data Provider. Check [issue #3](https://github.com/rafal-szypulka/grafana-ibm-apm/issues/3) for more details. 
+
+![domain_override.png](./media/domain_override.png)
 
 Select **Basic Auth** and **With credentials** and specify the user name
 
 -   APMv8 – smadmin (default password apmpass)
-
 -   ITMv6/SCAPMv7 sysadmin (password for ITM sysadmin user)
 
-
+Select checkbox "Deallocate dataset after every metric query". It is recommended to have it enabled all the time. Lack of datasource deallocation requests may cause memory leak and OutOfMemory exceptions on APM or ITM server. Disable this option only for testing a new panel query, if you want to use Grafana Query Inspector feature.
 
 The Screen below illustrates the completed configuration for the APMv8 data source:
 
