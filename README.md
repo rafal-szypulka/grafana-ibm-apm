@@ -210,22 +210,26 @@ Full installation and configuration process (Grafana, Nginx and IBM APM plugin) 
 
 IBM APM plugin installation
 ===========================
-Latest verion of the plugin is always available on this GitHub page. It can be also installed from the Grafana plugin repository
+Latest verion of the plugin is always available on this GitHub page. It can be also installed from the Grafana plugin repository.
 
-1).  To install the plugin from GitHub, go to your Grafana plugin directory (for Grafana installed using yum/rpm, it is: `/var/lib/grafana/plugins`) and simply clone the GitHub repository. 
+1).  Install the plugin using one of the following methods:
+
+a.) Download the latest release of the IBM APM plugin from [here](https://github.com/rafal-szypulka/grafana-ibm-apm/releases) and unpack on your Grafana server in `/var/lib/grafana/plugins` directory.
+
+b.) Simply clone the GitHub repository on you Grafana server: 
 
 ```
 cd /var/lib/grafana/plugins/
 git clone https://github.com/rafal-szypulka/grafana-ibm-apm
 
 ```
-Another option is to install plugin using Grafana CLI:
+c.) Install the plugin using Grafana CLI:
 
 ```
 grafana-cli plugins install ibm-apm-datasource
 ```
 
-2). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from [here](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc), or build it by yourself.
+2). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from [here](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc), or modify and build it by yourself.
 
 Here are the steps to build modified grafana-server binary:
 
