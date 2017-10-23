@@ -210,7 +210,7 @@ Full installation and configuration process (Grafana, Nginx and IBM APM plugin) 
 
 IBM APM plugin installation
 ===========================
-Latest verion of the plugin is always available on this GitHub page. It can be also installed from the Grafana plugin repository.
+Latest verion of the plugin is always available on this GitHub page. It can be also installed from the Grafana plugin repository. If you upgrade from older plugin version, manually remove plugin directory, for example `/var/lib/grafana/plugins/grafana-ibm-apm` or `/var/lib/grafana/plugins/ibm-apm-datasource` and follow the installation steps below.
 
 1).  Install the plugin using one of the following methods:
 
