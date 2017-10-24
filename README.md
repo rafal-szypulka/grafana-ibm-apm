@@ -216,14 +216,14 @@ Latest verion of the plugin is always available on this GitHub page. It can be a
 
 a.) Download the latest release of the IBM APM plugin from [here](https://github.com/rafal-szypulka/grafana-ibm-apm/releases) and unpack on your Grafana server in `/var/lib/grafana/plugins` directory.
 
-b.) Simply clone the GitHub repository on you Grafana server: 
+b.) Simply clone the GitHub repository on your Grafana server: 
 
 ```
 cd /var/lib/grafana/plugins/
 git clone https://github.com/rafal-szypulka/grafana-ibm-apm
 
 ```
-c.) Install the plugin using Grafana CLI:
+c.) Install the plugin using the Grafana CLI:
 
 ```
 grafana-cli plugins install ibm-apm-datasource
