@@ -229,7 +229,12 @@ c.) Install the plugin using Grafana CLI:
 grafana-cli plugins install ibm-apm-datasource
 ```
 
-2). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from [here](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc), or modify and build it by yourself.
+2). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from here: 
+
+- [RHEL 7 / CentOS 7](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc)
+- [RHEL 6 / CentOS 6](https://ibm.box.com/s/356e0vsslso171qwmsoy2fylhjfhpxkk)
+
+or modify and build it by yourself.
 
 Here are the steps to build modified grafana-server binary:
 
