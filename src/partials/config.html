@@ -2,8 +2,16 @@
                           suggest-url="http://&lt;host&gt;:&lt;port&gt;/ibm/tivoli/rest/providers/itm.&lt;TEMS_NAME_OR_KD8&gt;"></datasource-http-settings>
 <div class="gf-form-group max-width-20">
   <div class="gf-form">
+    <label class="gf-form-label width-11">Provider version 
+    <info-popover>Specify:<br><li><b>8.x</b> for IBM Cloud APM Private v8 and APM/IPM v8</li><li><b>6.x</b> for ITM/ITCAM/SCAPM/Omegamon</li></info-popover></label>
+    <select class="gf-form-input"
+            ng-model="ctrl.current.jsonData.providerVersion"
+            ng-options="f.value as f.name for f in ctrl.providerVersion"></select>
+
+  </div>
+  <div class="gf-form" ng-show="ctrl.current.jsonData.providerVersion == '6x'">
     <label class="gf-form-label width-11">ITMv6 UTC offset 
-    <info-popover>UTC time zone offest. Use it only for ITMv6 data source.<br> For APMv8, set it as 'none'.</info-popover></label>
+    <info-popover>UTC time zone offest. <b>Valid only for ITMv6 data source.</b><br>Set it to HUB TEMS time zone.</info-popover></label>
     <select class="gf-form-input"
             ng-model="ctrl.current.jsonData.tzOffset"
             ng-options="f.value as f.name for f in ctrl.tzOffset"></select>
@@ -11,10 +19,9 @@
   </div>
   <div class="gf-form-inline">
     <gf-form-switch class="gf-form"
-                    ng-model="ctrl.current.jsonData.sendHttpDelete""
-                    label="Dellocate dataset after every metric query (recommended)" tooltip="Any CURI REST GET requests for metrics requires that the request issuer also send a DELETE request when the payload received from the previous GET request is no longer required by the client."
+                    ng-model="ctrl.current.jsonData.sendHttpDelete"
+                    label="Deallocate dataset after every metric query (recommended)" tooltip="Any CURI REST GET requests for metrics requires that the request issuer also send a DELETE request when the payload received from the previous GET request is no longer required by the client."
                     checked="ctrl.current.jsonData.sendHttpDelete" switch-class="max-width-6">
     </gf-form-switch>
-
   </div>
 </div>

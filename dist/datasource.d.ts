@@ -10,6 +10,7 @@ declare class IPMDatasource {
     alertSrv: any;
     tzOffset: string;
     sendHttpDelete: boolean;
+    providerVersion: string;
     constructor(instanceSettings: any, $q: any, backendSrv: any, templateSrv: any, alertSrv: any);
     query(options: any): any;
     getAgentTypes(): any;

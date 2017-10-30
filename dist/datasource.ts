@@ -10,6 +10,7 @@ class IPMDatasource {
   alertSrv: any;
   tzOffset: string;
   sendHttpDelete: boolean;
+  providerVersion: string;
 
   constructor(instanceSettings, private $q, private backendSrv, private templateSrv, alertSrv) {
     this.name = instanceSettings.name;
@@ -17,7 +18,11 @@ class IPMDatasource {
     this.url = instanceSettings.url;
     this.alertSrv = alertSrv;
     this.tzOffset = instanceSettings.jsonData.tzOffset;
+    this.providerVersion = instanceSettings.jsonData.providerVersion;
     this.sendHttpDelete = instanceSettings.jsonData.sendHttpDelete;
+     if (this.providerVersion == "8x") {
+         this.tzOffset = '';
+     }
   }
 
   query(options) {
@@ -240,6 +245,7 @@ class IPMDatasource {
         datapoints: []
       })
     }
+    //console.log(seriesList);
     return seriesList;
   }
 
@@ -285,7 +291,7 @@ class IPMDatasource {
       data: request.data,
       
     };
-    var urlReplaced = request.url.search(/\items/) >= 0;
+    var urlReplaced = request.url.search(/\/items/) >= 0;
 
     return this.backendSrv.datasourceRequest(options).then(function (result) {
       if (result.status == 200) {

@@ -20,7 +20,11 @@ System.register(['moment', 'lodash'], function(exports_1) {
                     this.url = instanceSettings.url;
                     this.alertSrv = alertSrv;
                     this.tzOffset = instanceSettings.jsonData.tzOffset;
+                    this.providerVersion = instanceSettings.jsonData.providerVersion;
                     this.sendHttpDelete = instanceSettings.jsonData.sendHttpDelete;
+                    if (this.providerVersion == "8x") {
+                        this.tzOffset = '';
+                    }
                 }
                 IPMDatasource.prototype.query = function (options) {
                     var _this = this;
@@ -234,6 +238,7 @@ System.register(['moment', 'lodash'], function(exports_1) {
                             datapoints: []
                         });
                     }
+                    //console.log(seriesList);
                     return seriesList;
                 };
                 IPMDatasource.prototype.getDatapoints = function (items, target) {
@@ -279,7 +284,7 @@ System.register(['moment', 'lodash'], function(exports_1) {
                         params: request.params,
                         data: request.data,
                     };
-                    var urlReplaced = request.url.search(/\items/) >= 0;
+                    var urlReplaced = request.url.search(/\/items/) >= 0;
                     return this.backendSrv.datasourceRequest(options).then(function (result) {
                         if (result.status == 200) {
                             if (urlReplaced && self.sendHttpDelete) {

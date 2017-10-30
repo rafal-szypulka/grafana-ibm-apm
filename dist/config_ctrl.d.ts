@@ -6,4 +6,8 @@ export declare class IPMConfigCtrl {
         name: string;
         value: string;
     }[];
+    providerVersion: {
+        name: string;
+        value: string;
+    }[];
 }

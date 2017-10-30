@@ -6,8 +6,11 @@ export class IPMConfigCtrl {
 
     constructor($scope) {
         this.current.jsonData = this.current.jsonData || {};
-        this.current.jsonData.tzOffset = this.current.jsonData.tzOffset || '+0000';
+        
         this.current.jsonData.sendHttpDelete = this.current.jsonData.sendHttpDelete || 1;
+        this.current.jsonData.keepCookies = ['JSESSIONID'];
+        this.current.jsonData.providerVersion = this.current.jsonData.providerVersion || '8x';
+        this.current.jsonData.tzOffset = this.current.jsonData.tzOffset || '+0000';        
     }
 
     tzOffset = [
@@ -37,5 +40,9 @@ export class IPMConfigCtrl {
         {name: '+11 hours', value: '+1100'},
         {name: '+12 hours', value: '+1200'}
     ];
+    providerVersion = [
+        {name: '6.x', value: '6x'},
+        {name: '8.x', value: '8x'},
+  ];
 
 }
