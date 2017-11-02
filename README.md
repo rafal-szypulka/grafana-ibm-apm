@@ -190,9 +190,9 @@ Grafana installation
 ====================
 
 Follow the steps described in the Grafana documentation:
-[*http://docs.grafana.org/installation/*](http://docs.grafana.org/installation/)
+[*http://docs.grafana.org/installation/*](http://docs.grafana.org/installation/) to install Grafana.
 
-Latest versions of APMv8 and ITMv6 do a HTTP Referer header check and rejects REST API calls when Referer URL (host and port part) is different than APM or TEPS URL. Use one of the following workarounds to modify Referer header of requests coming from Grafana to APMv8 or TEPS. 
+Latest versions of APMv8 and ITMv6 do a HTTP Referer header check and reject REST API calls when Referer URL (host and port part) is different than APM or TEPS URL. Use one of the following workarounds to modify Referer header of requests coming from Grafana to APMv8 or TEPS. 
 
 - Disable the Referer HTTP header in the browser settings. Firefox: in the about:config page, search for Network.http.sendRefererHeader and set it to 0. Chrome requires a custom extension like [Referer Control](https://chrome.google.com/webstore/detail/referer-control/hnkcfpcejkafcihlgbojoidoihckciin).
 
