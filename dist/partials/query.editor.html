@@ -25,7 +25,7 @@
          ng-init="ctrl.onChangeAttributeGroup()"
          ng-show="ctrl.showPrimaryKey">
       <label class="gf-form-label query-keyword width-7">Group by:</label>
-      <metric-segment-model custom="true"
+      <metric-segment-model custom="false"
                             get-options="ctrl.PrimaryKey()"
                             on-change="ctrl.onChangeInternal()"
                             property="ctrl.target.PrimaryKey"></metric-segment-model>

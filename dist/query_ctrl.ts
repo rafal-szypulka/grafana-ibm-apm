@@ -65,7 +65,8 @@ class IPMQueryCtrl extends QueryCtrl {
   AgentTypes() {
     return this.getAgentTypes().then(items => {
       return _.map(items, item => {
-        return { text: item.description + '  -->  ' + item.id, value: item.id };
+        //return { text: item.description + '  -->  ' + item.id, value: item.id };
+        return { text: item.description, value: item.id };
       });
     });
   }
@@ -83,7 +84,8 @@ class IPMQueryCtrl extends QueryCtrl {
     return this.getAttributeGroups().then(items => {
       var filtered = items.filter(item => item.notAvailableInPreFetch != true);
       return filtered.map(item => {
-        return { text: item.description + '  -->  ' + item.id, value: item.id };
+        //return { text: item.description + '  -->  ' + item.id, value: item.id };
+        return { text: item.description, value: item.id };
       })
     });
   }
@@ -118,7 +120,8 @@ class IPMQueryCtrl extends QueryCtrl {
   Attributes() {
     return this.getAttributes().then(items => {
       return _.map(items, item => {
-        return { text: item.label + '  -->  ' + item.id, value: item.id };
+        //return { text: item.label + '  -->  ' + item.id, value: item.id };
+        return { text: item.label, value: item.id };
       });
     });
   }
@@ -137,7 +140,8 @@ class IPMQueryCtrl extends QueryCtrl {
   PrimaryKey() {
     return this.getPrimaryKey().then(items => {
       return _.map(items, item => {
-        return { text: item.label + '  -->  ' + item.id, value: item.id };
+        //return { text: item.label + '  -->  ' + item.id, value: item.id };
+        return { text: item.label, value: item.id };
       });
     });
   }
