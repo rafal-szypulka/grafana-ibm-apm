@@ -6,6 +6,8 @@ Contact: rafal.szypulka@pl.ibm.com
 
 Revision: 0.6
 
+**Plugin was tested with Grafana 4.5.2. Currently the plugin may not work correctly with the Grafana 4.6.x (work in progress).**
+
 **What's new:**
 
 - 0.6
