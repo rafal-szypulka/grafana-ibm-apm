@@ -4,12 +4,14 @@ Author: Rafal Szypulka
 
 Contact: rafal.szypulka@pl.ibm.com
 
-Revision: 0.6
+Revision: 0.7
 
-**Plugin was tested with Grafana 4.5.2. Currently the plugin may not work correctly with the Grafana 4.6.x (work in progress).**
 
 **What's new:**
 
+- 0.7
+  - Fixed compatibility issue with Grafana 4.6
+  - More readible dropdown lists in panel query editor. 
 - 0.6
   -  Added datasource configuration option to deallocate dataset on ITM/APM server after every metric query. It is highly recommended to have it enabled all the time. Lack of datasource deallocation requests may cause memory leak and OutOfMemory exceptions on ITM/APM server. This plugin update requires also change in the Grafana server backend. See updated installation instructions and datasource configuration for details.
 - 0.4
