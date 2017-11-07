@@ -20,7 +20,6 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 /** @ngInject **/
                 function IPMQueryCtrl($scope, $injector) {
                     _super.call(this, $scope, $injector);
-                    //showPrimaryKey = true;
                     this.timeAttributes = [
                         { name: 'TIMESTAMP', value: 'TIMESTAMP' },
                         { name: 'WRITETIME', value: 'WRITETIME' }
@@ -62,7 +61,6 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 IPMQueryCtrl.prototype.AgentTypes = function () {
                     return this.getAgentTypes().then(function (items) {
                         return lodash_1.default.map(items, function (item) {
-                            //return { text: item.description + '  -->  ' + item.id, value: item.id };
                             return { text: item.description, value: item.id };
                         });
                     });
@@ -80,7 +78,6 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     return this.getAttributeGroups().then(function (items) {
                         var filtered = items.filter(function (item) { return item.notAvailableInPreFetch != true; });
                         return filtered.map(function (item) {
-                            //return { text: item.description + '  -->  ' + item.id, value: item.id };
                             return { text: item.description, value: item.id };
                         });
                     });
@@ -114,7 +111,6 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 IPMQueryCtrl.prototype.Attributes = function () {
                     return this.getAttributes().then(function (items) {
                         return lodash_1.default.map(items, function (item) {
-                            //return { text: item.label + '  -->  ' + item.id, value: item.id };
                             return { text: item.label, value: item.id };
                         });
                     });
@@ -133,7 +129,6 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 IPMQueryCtrl.prototype.PrimaryKey = function () {
                     return this.getPrimaryKey().then(function (items) {
                         return lodash_1.default.map(items, function (item) {
-                            //return { text: item.label + '  -->  ' + item.id, value: item.id };
                             return { text: item.label, value: item.id };
                         });
                     });
