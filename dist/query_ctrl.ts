@@ -15,22 +15,20 @@ class IPMQueryCtrl extends QueryCtrl {
   ai: any[];   //Agent Instances
   showPrimaryKey: boolean;
 
-  //showPrimaryKey = true;
+  timeAttributes = [
+    { name: 'TIMESTAMP', value: 'TIMESTAMP' },
+    { name: 'WRITETIME', value: 'WRITETIME' }
+  ];
 
-   timeAttributes = [
-        { name: 'TIMESTAMP', value: 'TIMESTAMP' },
-        { name: 'WRITETIME', value: 'WRITETIME' }
-    ];
+  valueAttributes = [
+    { name: 'value', value: 'value' },
+    { name: 'displayValue', value: 'displayValue' }
+  ];
 
-   valueAttributes =  [
-        { name: 'value', value: 'value' },
-        { name: 'displayValue', value: 'displayValue' }
-    ];
-
-    timeRangeAttributes = [
-        { name: 'Dashboard time range', value: 'dashboard'},
-        { name: 'Current value', value: 'current'}
-    ]
+  timeRangeAttributes = [
+    { name: 'Dashboard time range', value: 'dashboard' },
+    { name: 'Current value', value: 'current' }
+  ]
 
   /** @ngInject **/
   constructor($scope, $injector) {
@@ -56,16 +54,17 @@ class IPMQueryCtrl extends QueryCtrl {
     } else {
       return this.datasource.getAgentTypes()
         .then(items => {
-	return items.sort(function(a,b) {
-	return (a.description > b.description ? 1 : -1 );
-	})});
+          return items.sort(function (a, b) {
+            return (a.description > b.description ? 1 : -1);
+          })
+        });
     }
   }
 
   AgentTypes() {
     return this.getAgentTypes().then(items => {
       return _.map(items, item => {
-        return { text: item.description + '  -->  ' + item.id, value: item.id };
+        return { text: item.description, value: item.id };
       });
     });
   }
@@ -74,16 +73,17 @@ class IPMQueryCtrl extends QueryCtrl {
     let target = this.target.target;
     return this.datasource.getAttributeGroups(target)
       .then(items => {
-	return items.sort(function(a,b) {
-	return (a.description > b.description ? 1 : -1 );
-	})});
+        return items.sort(function (a, b) {
+          return (a.description > b.description ? 1 : -1);
+        })
+      });
   }
 
   AttributeGroups() {
     return this.getAttributeGroups().then(items => {
       var filtered = items.filter(item => item.notAvailableInPreFetch != true);
       return filtered.map(item => {
-        return { text: item.description + '  -->  ' + item.id, value: item.id };
+        return { text: item.description, value: item.id };
       })
     });
   }
@@ -92,9 +92,10 @@ class IPMQueryCtrl extends QueryCtrl {
     let name = this.target.target;
     return this.datasource.getAgentInstances(name)
       .then(items => {
-	return items.sort(function(a,b) {
-		return (a.text < b.text ? 1 : -1 );
-	})});
+        return items.sort(function (a, b) {
+          return (a.text < b.text ? 1 : -1);
+        })
+      });
   }
 
   AgentInstances() {
@@ -110,15 +111,16 @@ class IPMQueryCtrl extends QueryCtrl {
     let aG = this.target.AttributeGroup;
     return this.datasource.getAttributes(target, aG)
       .then(items => {
-	return items.sort(function(a,b) {
-	return (a.label > b.label ? 1 : -1 );
-	})});
+        return items.sort(function (a, b) {
+          return (a.label > b.label ? 1 : -1);
+        })
+      });
   }
 
   Attributes() {
     return this.getAttributes().then(items => {
       return _.map(items, item => {
-        return { text: item.label + '  -->  ' + item.id, value: item.id };
+        return { text: item.label, value: item.id };
       });
     });
   }
@@ -127,23 +129,22 @@ class IPMQueryCtrl extends QueryCtrl {
     let target = this.target.target;
     let aG = this.target.AttributeGroup;
     return this.datasource.getPrimaryKey(target, aG).then(items => {
-        this.pk = items.sort(function(a,b) {
-  		return (a.label > b.label ? 1 : -1 );
-	});
-        return items;
+      this.pk = items.sort(function (a, b) {
+        return (a.label > b.label ? 1 : -1);
       });
+      return items;
+    });
   }
 
   PrimaryKey() {
     return this.getPrimaryKey().then(items => {
       return _.map(items, item => {
-        return { text: item.label + '  -->  ' + item.id, value: item.id };
+        return { text: item.label, value: item.id };
       });
     });
   }
 
   onChangeAgentType() {
-    
     this.refresh();
   }
 
@@ -152,13 +153,13 @@ class IPMQueryCtrl extends QueryCtrl {
   }
 
   onChangeAttributeGroup() {
-     this.getPrimaryKey().then(items => {
-       if (_.isEmpty(this.pk)) {
-         this.showPrimaryKey = false;
-       } else {
-         this.showPrimaryKey = true;     
-       }
-     });
+    this.getPrimaryKey().then(items => {
+      if (_.isEmpty(this.pk)) {
+        this.showPrimaryKey = false;
+      } else {
+        this.showPrimaryKey = true;
+      }
+    });
   }
 }
 
