@@ -13,7 +13,7 @@
       "label": "ITM63",
       "description": "",
       "type": "datasource",
-      "pluginId": "ibm-apm",
+      "pluginId": "ibm-apm-datasource",
       "pluginName": "IBM APM"
     }
   ],
