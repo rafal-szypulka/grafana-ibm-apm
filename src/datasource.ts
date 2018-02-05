@@ -29,7 +29,6 @@ class IPMDatasource {
     var self = this;
     var rangeFrom = moment(options.range.from).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
     var rangeTo = moment(options.range.to).utc().utcOffset(self.tzOffset).format('YYYYMMDDTHHmmss');
-    
     //this.alertSrv.set("date range",rangeFrom + ' -- ' + rangeTo + ' -- ' + self.tzOffset,"error");
 
     var requests = _.map(options.targets, target => {
@@ -255,13 +254,21 @@ class IPMDatasource {
     if (target || target == 0) {
       items.forEach(function (item) {
         if (item.properties[2].value == target) {
-          series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + tzOffset).valueOf()]);
-        }
+            if (item.properties[0].valueType == "string" || item.properties[0].valueType == "isodatetime") {
+                series.push([item.properties[0][item.valueAttribute], moment(item.properties[1].value + tzOffset).valueOf()]);
+            } else {
+                series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + tzOffset).valueOf()]);
+          }
+      }
       });
     } else {
       items.forEach(function (item) {
-        series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + tzOffset).valueOf()]);
-      });
+           if (item.properties[0].valueType == "string" || item.properties[0].valueType == "isodatetime") {
+                series.push([item.properties[0][item.valueAttribute], moment(item.properties[1].value + tzOffset).valueOf()]);
+          } else {
+                series.push([parseFloat(item.properties[0][item.valueAttribute]), moment(item.properties[1].value + tzOffset).valueOf()]);
+            }
+       });
     }
     return series;
   }
@@ -289,7 +296,6 @@ class IPMDatasource {
       url: request.url,
       params: request.params,
       data: request.data,
-      
     };
     var urlReplaced = request.url.search(/\/items/) >= 0;
 
