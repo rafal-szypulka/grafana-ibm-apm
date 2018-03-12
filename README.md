@@ -4,10 +4,15 @@ Author: Rafal Szypulka
 
 Contact: rafal.szypulka@pl.ibm.com
 
-Revision: 0.7
+Revision: 0.8
 
 
 **What's new:**
+
+- 0.8
+  - Added support for string metrics, thx [@lcollin](https://github.com/lcollin)
+  - Added example dashboard for Node.js application running in IBM Cloud Private.
+  - Simplified installation for Grafana 5. Plugin works correctly without any modifications in Grafana 5 backend. See updated installation instructions and datasource configuration for details.
 
 - 0.7
   - Fixed compatibility issue with Grafana 4.6
@@ -233,7 +238,9 @@ c.) Install the plugin using the Grafana CLI:
 grafana-cli plugins install ibm-apm-datasource
 ```
 
-2). Plugin requires slight modification of the Grafana server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.5 installed on Linux, replace **grafana-server** binary with the one downladed from here: 
+2). If you are using Grafana 5.x, skip this step - Grafana 5.x allows to define a whitelist of cookies that can pass the datasource proxy and IBM APM Grafana plugin utilize this feature to deallocate datasets on ITM or APM server. 
+
+If you are using Grafana 4.x, phe plugin requires slight modification of the Grafana 4.x server backend to properly deallocate datasets on the APM or ITM server after every metric query. For Grafana 4.x installed on Linux, replace **grafana-server** binary with the one downladed from here: 
 
 - [RHEL 7 / CentOS 7](https://ibm.box.com/s/6sflz4wyru71vh645h311oarygwnztxc)
 - [RHEL 6 / CentOS 6](https://ibm.box.com/s/356e0vsslso171qwmsoy2fylhjfhpxkk)
