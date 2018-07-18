@@ -31,7 +31,7 @@ Contents
 
 [**1. Introduction**](#introduction)
 
-[**2. Demo environment**](#demo-environment)
+[~~2. Demo environment~~](#demo-environment)
 
 [**3. Example dashboards**](#example-dashboards)
 
@@ -75,20 +75,6 @@ The plugin uses metrics REST API to collect data directly from APMv8 and ITMv6
 and show on the Grafana dashboard.
 
 ![](./media/Sample_LinuxOS_dashboard_animated.gif)
-
-
-Demo environment
-===================
-
-The live demo environment is available here: [ibm.biz/grafana-ibm-apm](http://ibm.biz/grafana-ibm-apm). User: demo. Password: demo.
-Alternative URL with SSL: [ibm.biz/grafana-ibm-apm-ssl](http://ibm.biz/grafana-ibm-apm-ssl)
-
-The live demo user has the role of **Read Only Editor** in the Grafana main organization. You can see how dashboards are configured and make
-temporary changes, but you can’t save them.
-If you want to create and save your dashboard, please switch to **sandbox** organization, by clicking the Grafana logo -&gt; DEMO user -&gt;
-Switch to sandbox.
-
-If you want to customize existing dashboard in the sandbox environment, copy it first by clicking ![](./media/image1.png) Manage Dashboard > Save as, enter a new name and then make your changes.
 
 
 Example dashboards
