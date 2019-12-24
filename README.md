@@ -100,7 +100,7 @@ It looks exatly the same as the one above, but data is collected from ITMv6.
 
 4). Mashup of ITMv6 and APMv8 data on the same chart.
 
-[*http://http://169.44.6.110/dashboard/db/mashup-itm63-apm813?refresh=30s&orgId=1*](http://169.44.6.110/dashboard/db/mashup-itm63-apm813?refresh=30s&orgId=1)
+[*http://169.44.6.110/dashboard/db/mashup-itm63-apm813?refresh=30s&orgId=1*](http://169.44.6.110/dashboard/db/mashup-itm63-apm813?refresh=30s&orgId=1)
 
 ![](./media/mashup.png)
 
