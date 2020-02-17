@@ -6,6 +6,7 @@
 
 <details>
   <summary>CHANGELOG</summary>
+
 - 0.9
   - Better support for table panels.
   - Redesigned query editor, added features like collecting multiple metrics per query and switching between timeserie and table format. 
