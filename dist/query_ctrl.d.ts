@@ -10,8 +10,9 @@ declare class IPMQueryCtrl extends QueryCtrl {
     ag: any[];
     atr: any[];
     pk: any[];
-    ai: any[];
     showPrimaryKey: boolean;
+    attrSegments: any[];
+    uiSegmentSrv: any;
     timeAttributes: {
         name: string;
         value: string;
@@ -24,8 +25,14 @@ declare class IPMQueryCtrl extends QueryCtrl {
         name: string;
         value: string;
     }[];
+    formats: {
+        name: string;
+        value: string;
+    }[];
     /** @ngInject **/
-    constructor($scope: any, $injector: any);
+    constructor($scope: any, $injector: any, uiSegmentSrv: any, $q: any);
+    setAttrSegments(): void;
+    attrSegmentUpdated(col: any, index: any): void;
     getAgentTypes(): any;
     AgentTypes(): any;
     getAttributeGroups(): any;
@@ -36,8 +43,8 @@ declare class IPMQueryCtrl extends QueryCtrl {
     Attributes(): any;
     getPrimaryKey(): any;
     PrimaryKey(): any;
-    onChangeAgentType(): void;
     onChangeInternal(): void;
+    onChangeTimeRange(): void;
     onChangeAttributeGroup(): void;
 }
 export { IPMQueryCtrl };
