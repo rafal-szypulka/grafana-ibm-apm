@@ -50,7 +50,7 @@ The plugin uses metrics REST API to collect data directly from APMv8 and ITMv6.
 
 The Screen below illustrates the completed configuration for the ITM v6 data source:
 
-![](media/2020-02-17-17-38-55.png | width=200)
+![](media/2020-02-17-17-38-55.png)
 
 Specify the REST API URL:
 
