@@ -18,7 +18,7 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
             IPMQueryCtrl = (function (_super) {
                 __extends(IPMQueryCtrl, _super);
                 /** @ngInject **/
-                function IPMQueryCtrl($scope, $injector) {
+                function IPMQueryCtrl($scope, $injector, uiSegmentSrv, $q) {
                     _super.call(this, $scope, $injector);
                     this.timeAttributes = [
                         { name: 'TIMESTAMP', value: 'TIMESTAMP' },
@@ -32,19 +32,53 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                         { name: 'Dashboard time range', value: 'dashboard' },
                         { name: 'Current value', value: 'current' }
                     ];
+                    this.formats = [
+                        { name: 'timeserie', value: 'timeserie' },
+                        { name: 'table', value: 'table' },
+                    ];
                     var target_defaults = {
                         target: 'Select Agent Type...',
                         AttributeGroup: 'Select AttributeGroup...',
-                        Attribute: 'Select Attribute...',
                         PrimaryKey: 'Select Display Item...',
                         AgentInstance: 'Select Agent...'
                     };
                     lodash_1.default.defaultsDeep(this.target, target_defaults);
+                    this.uiSegmentSrv = uiSegmentSrv;
                     this.target.timeAttribute = this.target.timeAttribute || 'WRITETIME';
                     this.target.valueAttribute = this.target.valueAttribute || 'displayValue';
                     this.target.timeRangeAttribute = this.target.timeRangeAttribute || 'dashboard';
+                    this.target.format = this.target.format || 'table';
+                    this.target.Attribute = this.target.Attribute || '';
+                    this.target.alias = this.target.alias || this.target.Attribute;
+                    this.setAttrSegments();
                 }
                 ;
+                IPMQueryCtrl.prototype.setAttrSegments = function () {
+                    var _this = this;
+                    this.attrSegments = [];
+                    if (this.target.Attribute) {
+                        var Attributes = this.target.Attribute.split(",");
+                        Attributes.forEach(function (col) {
+                            _this.attrSegments.push(_this.uiSegmentSrv.newSegment({ value: col }));
+                        });
+                    }
+                    this.attrSegments.push(this.uiSegmentSrv.newPlusButton());
+                };
+                IPMQueryCtrl.prototype.attrSegmentUpdated = function (col, index) {
+                    var aliases = this.target.alias.split(",");
+                    var Attributes = this.target.Attribute.split(",");
+                    Attributes[index] = col.value;
+                    aliases[index] = col.value;
+                    if (col.value == "-- remove --") {
+                        Attributes.splice(index, 1);
+                        aliases.splice(index, 1);
+                    }
+                    this.target.Attribute = Attributes.toString();
+                    this.setAttrSegments();
+                    this.target.alias = aliases.toString();
+                    this.refresh();
+                    return;
+                };
                 IPMQueryCtrl.prototype.getAgentTypes = function () {
                     if (this.at) {
                         return Promise.resolve(this.at);
@@ -103,6 +137,8 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     var aG = this.target.AttributeGroup;
                     return this.datasource.getAttributes(target, aG)
                         .then(function (items) {
+                        //console.log(items);
+                        items.push({ label: '-- remove --', id: '-- remove --' });
                         return items.sort(function (a, b) {
                             return (a.label > b.label ? 1 : -1);
                         });
@@ -111,15 +147,16 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                 IPMQueryCtrl.prototype.Attributes = function () {
                     return this.getAttributes().then(function (items) {
                         return lodash_1.default.map(items, function (item) {
-                            return { text: item.label, value: item.id };
+                            return { text: item.id, value: item.id };
                         });
-                    });
+                    }).then(this.uiSegmentSrv.transformToSegments(false));
                 };
                 IPMQueryCtrl.prototype.getPrimaryKey = function () {
                     var _this = this;
                     var target = this.target.target;
                     var aG = this.target.AttributeGroup;
                     return this.datasource.getPrimaryKey(target, aG).then(function (items) {
+                        //items.push({ label: '--', id: '' });
                         _this.pk = items.sort(function (a, b) {
                             return (a.label > b.label ? 1 : -1);
                         });
@@ -133,11 +170,14 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                         });
                     });
                 };
-                IPMQueryCtrl.prototype.onChangeAgentType = function () {
-                    this.refresh();
-                };
                 IPMQueryCtrl.prototype.onChangeInternal = function () {
                     this.refresh();
+                };
+                IPMQueryCtrl.prototype.onChangeTimeRange = function () {
+                    if (this.target.timeRangeAttribute === 'current') {
+                        this.target.timeAttribute = 'TIMESTAMP';
+                        this.refresh();
+                    }
                 };
                 IPMQueryCtrl.prototype.onChangeAttributeGroup = function () {
                     var _this = this;

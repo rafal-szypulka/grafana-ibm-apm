@@ -11,8 +11,10 @@ declare class IPMDatasource {
     tzOffset: string;
     sendHttpDelete: boolean;
     providerVersion: string;
+    rowsLimit: any;
     constructor(instanceSettings: any, $q: any, backendSrv: any, templateSrv: any, alertSrv: any);
     query(options: any): any;
+    getProviderVersion(): string;
     getAgentTypes(): any;
     getAttributeGroups(agentType: any): any;
     getAgentInstances(agentType: any): any;
@@ -21,8 +23,11 @@ declare class IPMDatasource {
     getPrimaryKey(agentType: any, attributeGroup: any): any;
     testDatasource(): any;
     parse(results: any): any[];
-    getDatapoints(items: any, target: any): any[];
-    getTarget(items: any, value: any): any;
+    getColumns(columnsDict: any): any[];
+    getDatapoints(items: any, i: any, target: any): any[];
+    getDatapointsWithoutGroupBy(items: any, i: any, target: any): any[];
+    getDatapointsTable(items: any): any[];
+    getTarget(items: any, i: any, value: any): any;
     httpGet(request: any): any;
     doSimpleHttpGet(request: any): any;
 }
