@@ -42,13 +42,13 @@ IBM APM plugin provides Grafana support for:
 - IBM SmartCloud Application Performance Management 7.x 
 - IBM Cloud Application Performance Management Private
 
-The plugin uses metrics REST API to collect data directly from APMv8 and ITMv6.
+The plugin collects data directly from APM v8 or ITM v6 metrics REST API.
 
 ![](./media/Sample_LinuxOS_dashboard_animated.gif)
 
 ## Configure the ITM/APM data source
 
-The Screen below illustrates the completed configuration for the ITM v6 data source:
+The screen below illustrates the configuration for the ITM v6 data source:
 
 ![](media/2020-02-17-17-38-55.png)
 
@@ -78,28 +78,31 @@ Select checkbox `Deallocate dataset after every metric query`. It is recommended
 
 The query editor for IBM APM Grafana plugin helps to assemble ITM/APM metrics API request.
 
-Follow two simple examples below to learn how to use it.
+The examples below show how to use it.
 
 #### 1. Line chart for Linux OS CPU
 
 1.  Add new panel, select `Graph` as a visualization type, select `Queries` and your configured IBM APM data source.
 ![](media/2020-02-17-15-05-37.png)
 2.  Select `Agent Type`. You can type agent code or agent type name to search for supported agent type or scroll down a dropdown list.
-The list is built dynamically through the REST API call. If the resulting dropdown list is empty, a possible cause might be a connection problem with the APM REST API. You can easily debug it with developer tools in Chrome or Firebug in Firefox (see the Troubleshooting chapter at the end of this document).
+The list is built dynamically through the REST API call. If the resulting dropdown list is empty, a possible cause might be a connection problem with the APM REST API. You can troubelshoot it with Developer Tools in Chrome or Firebug in Firefox (see the Troubleshooting chapter at the end of this document).
 ![](media/2020-02-17-15-09-45.png)
 3.  Similar way select other parameters like `Attribute Group`, `Group by` (only for Attribute groups with Primary Key/Display Item) and `Agent Instance`. Make sure that selected `Format` for Graph panel is `timeserie`.
 4.  Click `+` to select one or more `Attributes` (metrics).
 5.  Optionaly specify a `Condition` (for filtering results) and edit default `Aliases` for parameter name
 customization. Alias, if defined, will replace the default parameter name in the legend. The default is *AttributeName:DisplayItem*. The alias replaces *AttributeName* part.
 6.  The result should be similar to the one below:
+   
 ![](media/2020-02-17-16-29-57.png)
 
 #### 2. Table with Agents status
 1.  Add new panel, select `Table` as a visualization type, select Queries and your configured IBM APM data source.
-![](media/2020-02-17-17-25-05.png)
+   
+   ![](media/2020-02-17-17-25-05.png)
 2.  Select parameters in the first row of Query Editor like `Agent Type`, `Attribute Group`. In our example we will show current agent status, so select `ANY:All Managed Systems` Agent Type, `Managed System Information` Attribute Group, and `TEMS` Agent Instance. Make sure that selected `Format` for Table panel is `table`.
 3.  Select the following `Attributes` in the second row of Query Editor: HOSTNAME, NETADDR, PRODUCT, ORIGINNODE, AVAILABLE.
 4.  The result should be similar to the one below:
+   
 ![](media/2020-02-17-17-31-22.png)
 
 ## Grafana installation
