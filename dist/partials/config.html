@@ -17,7 +17,6 @@
             ng-options="f.value as f.name for f in ctrl.tzOffset"></select>
 
   </div>
-  
   <div class="gf-form-inline">
     <gf-form-switch class="gf-form"
                     ng-model="ctrl.current.jsonData.sendHttpDelete"
@@ -25,13 +24,4 @@
                     checked="ctrl.current.jsonData.sendHttpDelete" switch-class="max-width-6">
     </gf-form-switch>
   </div>
-
-  <div class="gf-form-inline">
-    <div class="gf-form">
-      <label class="gf-form-label width-20" >The maximum number of rows to retrieve <info-popover >
-        The maximum number of rows to retrieve from the originating data source after all other filtering operations have been applied to the result set.
-      </info-popover></label>
-      <input type="text" class="gf-form-input width-8" ng-model="ctrl.current.jsonData.rowsLimit" spellcheck='false'></input>
-  </div>
-
 </div>
