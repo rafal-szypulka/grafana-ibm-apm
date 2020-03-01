@@ -2,7 +2,7 @@
 
 [Changelog](changelog.md)
 
-> Version 0.9 includes a couple of new features (see [Changelog](changelog.md)) and dashboards created with older version of the IBM APM Grafana plugin may be not fully compatible. You may need to fix or recreate some of the table and snglestat panels.  
+> Version 0.9 includes a couple of new features (see [Changelog](changelog.md)) and dashboards created with older version of the IBM APM Grafana plugin may be not fully compatible. You may need to fix or recreate some of the table and singlestat panels.  
 
 > You may be also interested in [Prometheus exporter for ITM](https://github.com/rafal-szypulka/itm_exporter).
 
