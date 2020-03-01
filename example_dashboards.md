@@ -2,6 +2,8 @@
 
 Sample dashboards can be imported from [here](Example_dashboards).
 
+## Other examples
+
 1). Sample IBM Stack monitoring dashboard with data from Linux OS, IBM HTTP Server, WebSphere Applications, WebSphere MQ, IBM DB2 and IBM Integration Bus agents:
     
 ![](./media/Sample_IBM_Stack_monitoring1.png)

@@ -1,11 +1,12 @@
 # IBM APM plugin for Grafana
 
 [Changelog](changelog.md)
+
+> Version 0.9 includes a couple of new features (see [Changelog](changelog.md)) and dashboards created with older version of the IBM APM Grafana plugin may be not fully compatible. You may need to fix or recreate some of the table and snglestat panels.  
+
 > You may be also interested in [Prometheus exporter for ITM](https://github.com/rafal-szypulka/itm_exporter).
 
 
-
-- [IBM APM plugin for Grafana](#IBM-APM-plugin-for-Grafana)
 - [Introduction](#Introduction)
 - [Configure the ITM/APM data source](#Configure-the-ITMAPM-data-source)
 - [Query Editor](#Query-Editor)
@@ -16,12 +17,11 @@
 - [Troubleshooting](#Troubleshooting)
 
 
-
 # Introduction
 
 IBM APM plugin provides Grafana support for:
 
-- IBM Tivoli Monitoring 6.x and IBM Omagamon
+- IBM Tivoli Monitoring 6.x and IBM OMEGAMON
 - IBM SmartCloud Application Performance Management 7.x 
 - IBM Cloud Application Performance Management Private
 
@@ -45,7 +45,7 @@ Specify the REST API URL:
 
 `http://<TEPS_server_hostname>:15200/ibm/tivoli/rest/providers/itm.<TEMS_NAME>`
 
-**Note:** If you connect IBM APM datasource to Hub TEMS with HA configuration or `<TEMS_NAME>` contains non-alphanumeric characters, then define Domain Override in TEPS Data Provider. Check [issue #3](https://github.com/rafal-szypulka/grafana-ibm-apm/issues/3) for more details. 
+**Note:** If you connect IBM APM data source to Hub TEMS with HA configuration or `<TEMS_NAME>` contains non-alphanumeric characters, then define Domain Override in TEPS Data Provider. Check [issue #3](https://github.com/rafal-szypulka/grafana-ibm-apm/issues/3) for more details. 
 
 ![domain_override.png](./media/domain_override.png)
 

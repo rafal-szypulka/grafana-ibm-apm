@@ -3,7 +3,7 @@ The IBM APM plugin collects data from the IBM APM metrics REST API and allows yo
 
 - IBM Tivoli Monitoring 6.x
 - IBM SmartCloud Application Performance Management 7.x 
-- IBM Cloud Allpication Performance Managament 8.x (only on premises version)
+- IBM Cloud Application Performance Management 8.x (only on premises version)
 
 > You may be also interested in [Prometheus exporter for ITM](https://github.com/rafal-szypulka/itm_exporter)
 
@@ -11,4 +11,4 @@ The IBM APM plugin collects data from the IBM APM metrics REST API and allows yo
 Full documentation available [here](https://github.com/rafal-szypulka/grafana-ibm-apm). 
 
 ### Author
-Rafal Szypulka, IBM
+Rafal Szypulka
