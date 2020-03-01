@@ -41,6 +41,7 @@ System.register([], function(exports_1) {
                     this.current.jsonData.keepCookies = ['JSESSIONID'];
                     this.current.jsonData.providerVersion = this.current.jsonData.providerVersion || '8x';
                     this.current.jsonData.tzOffset = this.current.jsonData.tzOffset || '+0000';
+                    this.current.jsonData.rowsLimit = this.current.jsonData.rowsLimit || 20000;
                 }
                 IPMConfigCtrl.templateUrl = 'partials/config.html';
                 return IPMConfigCtrl;
