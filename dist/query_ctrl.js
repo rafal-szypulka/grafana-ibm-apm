@@ -47,7 +47,7 @@ System.register(['app/plugins/sdk', 'lodash'], function(exports_1) {
                     this.target.timeAttribute = this.target.timeAttribute || 'WRITETIME';
                     this.target.valueAttribute = this.target.valueAttribute || 'displayValue';
                     this.target.timeRangeAttribute = this.target.timeRangeAttribute || 'dashboard';
-                    this.target.format = this.target.format || 'table';
+                    this.target.format = this.target.format || 'timeserie';
                     this.target.Attribute = this.target.Attribute || '';
                     this.target.alias = this.target.alias || this.target.Attribute;
                     this.setAttrSegments();
