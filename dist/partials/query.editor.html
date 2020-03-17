@@ -96,8 +96,13 @@
                 ng-options="v.value as v.name for v in ctrl.timeRangeAttributes"></select>
       </span>
     </div>
+    <div class="gf-form gf-form--grow">
+      <div class="gf-form-label gf-form-label--grow"></div>
+    </div>
+  </div>
+  <div class="gf-form-inline">
     <div class="gf-form">
-      <label class="gf-form-label query-keyword width-6">Format:</label>
+      <label class="gf-form-label query-keyword width-8">Format:</label>
       <span class="gf-form-select-wrapper">
         <select class="gf-form-input gf-size-auto"
                 ng-change="ctrl.onChangeInternal()"

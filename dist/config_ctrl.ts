@@ -7,7 +7,7 @@ export class IPMConfigCtrl {
     constructor($scope) {
         this.current.jsonData = this.current.jsonData || {};
         
-        this.current.jsonData.sendHttpDelete = this.current.jsonData.sendHttpDelete || 1;
+        this.current.jsonData.sendHttpDelete = this.current.jsonData.sendHttpDelete || true;
         this.current.jsonData.keepCookies = ['JSESSIONID'];
         this.current.jsonData.providerVersion = this.current.jsonData.providerVersion || '8x';
         this.current.jsonData.tzOffset = this.current.jsonData.tzOffset || '+0000';
