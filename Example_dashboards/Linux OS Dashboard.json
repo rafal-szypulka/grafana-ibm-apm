@@ -115,7 +115,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "AgentInstance": "rs41:LZ",
+          "AgentInstance": "$AgentName",
           "Attribute": "BUSYCPU",
           "AttributeGroup": "MetricGroup.KLZCPU",
           "Condition": "",
@@ -482,7 +482,7 @@
       "pluginVersion": "6.6.1",
       "targets": [
         {
-          "AgentInstance": "rs41:LZ",
+          "AgentInstance": "$AgentName",
           "Attribute": "DSKUSEDPCT",
           "AttributeGroup": "MetricGroup.KLZDISK",
           "Condition": "DSKUSEDPCT > 0",
@@ -546,7 +546,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "AgentInstance": "rs41:LZ",
+          "AgentInstance": "$AgentName",
           "Attribute": "TPS",
           "AttributeGroup": "MetricGroup.KLZDSKIO",
           "PrimaryKey": "DKNAME",
