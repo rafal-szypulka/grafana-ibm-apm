@@ -1,0 +1,2404 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 100,
+    "iteration": 1593183575004,
+    "links": [],
+    "panels": [
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {},
+            "displayName": "RECOC1",
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 10
+                },
+                {
+                  "color": "green",
+                  "value": 15
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 42,
+        "links": [],
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "USEPET",
+            "AttributeGroup": "MetricGroup.KRZASMDKGP",
+            "Condition": "NAME='RECOC1'",
+            "PrimaryKey": "NAME",
+            "alias": ".",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentASM",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "ASM Disk % Usable",
+        "transparent": true,
+        "type": "bargauge"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "Total Session Count",
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 2,
+          "x": 0,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 51,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "TOTAL_CNT",
+            "AttributeGroup": "MetricGroup.KRZSESSSMY",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "Total Process Count",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 2,
+          "x": 2,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 54,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "TOTPROCESS",
+            "AttributeGroup": "MetricGroup.KRZRDBPROS",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "Active Session Count",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 2,
+          "x": 4,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 52,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "ACTIVE_CNT",
+            "AttributeGroup": "MetricGroup.KRZSESSSMY",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": "Active Session Count",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "Background Session Count",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 3,
+          "x": 6,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 64,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "BACKGN_CNT",
+            "AttributeGroup": "MetricGroup.KRZSESSSMY",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": "Background Session Count",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "% Library Cache Hit",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 85
+                },
+                {
+                  "color": "green",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 3,
+          "x": 9,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 59,
+        "links": [],
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "PINRATIO",
+            "AttributeGroup": "MetricGroup.KRZLIBCART",
+            "PrimaryKey": "INSTID",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "gauge"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "% Buffer Cache Hit",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 85
+                },
+                {
+                  "color": "green",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 3,
+          "x": 12,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 60,
+        "links": [],
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "HITRATIO",
+            "AttributeGroup": "MetricGroup.KRZBUFCART",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "gauge"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "% Process Limit",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 3,
+          "x": 15,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 53,
+        "links": [],
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "PTOTLIMIT",
+            "AttributeGroup": "MetricGroup.KRZRDBPROS",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "gauge"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "Total Active TRansactions",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 2,
+          "x": 18,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 56,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "TTRANS",
+            "AttributeGroup": "MetricGroup.KRZRDBRSS",
+            "PrimaryKey": "INST_ID",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 20,
+          "y": 3
+        },
+        "hideTimeOverride": true,
+        "id": 57,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "LOCKCNT",
+            "AttributeGroup": "MetricGroup.KRZRDBLS",
+            "PrimaryKey": "LOCKTYPE",
+            "alias": "Lock",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": "3h",
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 1,
+            "displayName": "Audit File Free Space %",
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 100,
+            "min": 0,
+            "nullValueMode": "connected",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgba(245, 54, 54, 0.9)",
+                  "value": null
+                },
+                {
+                  "color": "rgba(237, 129, 40, 0.89)",
+                  "value": 7
+                },
+                {
+                  "color": "rgba(50, 172, 45, 0.97)",
+                  "value": 14
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 11
+        },
+        "id": 32,
+        "links": [],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "FREEPCT",
+            "AttributeGroup": "MetricGroup.KRZRDBDKSP",
+            "Condition": "OWNER = 'audit_file_dest'",
+            "PrimaryKey": "OWNER",
+            "alias": "",
+            "app_id": null,
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "type": "applications",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "SGA Usage",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 5,
+          "y": 11
+        },
+        "id": 58,
+        "links": [],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "TOTUPT",
+            "AttributeGroup": "MetricGroup.KRZSGAOVEW",
+            "Condition": "",
+            "PrimaryKey": "INSTID",
+            "alias": "",
+            "app_id": "asdas",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "type": "applications",
+            "value": "MetricGroup.KLZTCP",
+            "value1": "Select attribute",
+            "valueAttribute": "value"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 10
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 10,
+          "x": 10,
+          "y": 11
+        },
+        "hideTimeOverride": true,
+        "id": 5,
+        "links": [],
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PCIFMAX",
+            "AttributeGroup": "MetricGroup.KRZTSNLUE",
+            "Condition": "",
+            "PrimaryKey": "TNAME",
+            "alias": "T",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "WRITETIME",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "value"
+          }
+        ],
+        "timeFrom": "24h",
+        "timeShift": null,
+        "title": "Tablespace Free%",
+        "type": "bargauge"
+      },
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+          "h": 10,
+          "w": 4,
+          "x": 20,
+          "y": 11
+        },
+        "id": 26,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 1,
+          "desc": false
+        },
+        "styles": [
+          {
+            "alias": "% Free",
+            "align": "auto",
+            "colorMode": "row",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "#967302",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": null,
+            "link": false,
+            "mappingType": 1,
+            "pattern": "Current",
+            "thresholds": [
+              "7",
+              "14"
+            ],
+            "type": "number",
+            "unit": "percent"
+          },
+          {
+            "alias": "TableSpace Name",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "mappingType": 1,
+            "pattern": "Metric",
+            "thresholds": [],
+            "type": "number",
+            "unit": "short"
+          }
+        ],
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PCIFREE",
+            "AttributeGroup": "MetricGroup.KRZTSNLUE",
+            "Condition": "MBUSED < 250000",
+            "PrimaryKey": "TNAME",
+            "alias": ".",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "%FREE TableSpace < 250GB",
+        "transform": "timeseries_aggregations",
+        "type": "table-old"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 1,
+            "displayName": "FRA Used %",
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 100,
+            "min": 0,
+            "nullValueMode": "connected",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "rgba(245, 54, 54, 0.9)",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 50
+                },
+                {
+                  "color": "dark-red",
+                  "value": 75
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 14
+        },
+        "id": 34,
+        "links": [],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PCTUSED",
+            "AttributeGroup": "MetricGroup.KRZRDBFRA",
+            "Condition": "",
+            "PrimaryKey": "OWNER",
+            "app_id": null,
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "type": "applications",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "PGA Usage",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decmbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 5,
+          "y": 14
+        },
+        "id": 38,
+        "links": [],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "TOTPGAUSMB",
+            "AttributeGroup": "MetricGroup.KRZRDPGAOV",
+            "Condition": "",
+            "PrimaryKey": "INSTID",
+            "alias": "",
+            "app_id": "asdas",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "type": "applications",
+            "value": "MetricGroup.KLZTCP",
+            "value1": "Select attribute",
+            "valueAttribute": "value"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "displayName": "Oracle Process Used %",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 17
+        },
+        "id": 40,
+        "links": [],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PTOTLIMIT",
+            "AttributeGroup": "MetricGroup.KRZRDBPROS",
+            "Condition": "",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": "Instance Name",
+            "app_id": "asdas",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "type": "applications",
+            "value": "MetricGroup.KLZTCP",
+            "value1": "Select attribute",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {},
+            "displayName": "Flash Recovery Free %",
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 5
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 5,
+          "y": 17
+        },
+        "id": 36,
+        "links": [],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          }
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "FREEPCT",
+            "AttributeGroup": "MetricGroup.KRZRDBRFD",
+            "Condition": "",
+            "PrimaryKey": "NAME",
+            "alias": ".",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "IBM APM",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 0,
+          "y": 20
+        },
+        "hiddenSeries": false,
+        "hideTimeOverride": true,
+        "id": 9,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideZero": true,
+          "max": true,
+          "min": true,
+          "rightSide": true,
+          "show": true,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "USEDDG%:/oracle/GE4/oraarch",
+            "yaxis": 1
+          },
+          {
+            "alias": "USEDDG%:/oracle/GE4/oraarch2",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "AgentInstance": "$ORASERVERUNIX",
+            "Attribute": "PCTSPCUSED",
+            "AttributeGroup": "MetricGroup.UNIXDISK",
+            "Condition": "UMOUNTPT contains 'arch'",
+            "PrimaryKey": "UMOUNTPT",
+            "alias": "USED%",
+            "refId": "D",
+            "target": "TMSAgent.%IBM.STATIC013",
+            "timeAttribute": "WRITETIME",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "value"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": "24h",
+        "timeRegions": [],
+        "timeShift": "3h",
+        "title": "DB Archive FS Used % Last12 hours",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "percent",
+            "label": "PCT Used",
+            "logBase": 1,
+            "max": "100",
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "percent",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 20,
+          "y": 21
+        },
+        "id": 30,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 1,
+          "desc": false
+        },
+        "styles": [
+          {
+            "alias": "% Free",
+            "align": "auto",
+            "colorMode": "row",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "#967302",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": null,
+            "link": false,
+            "mappingType": 1,
+            "pattern": "Current",
+            "thresholds": [
+              "7",
+              "14"
+            ],
+            "type": "number",
+            "unit": "percent"
+          },
+          {
+            "alias": "TableSpace Name",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "mappingType": 1,
+            "pattern": "Metric",
+            "thresholds": [],
+            "type": "number",
+            "unit": "short"
+          }
+        ],
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PCIFREE",
+            "AttributeGroup": "MetricGroup.KRZTSNLUE",
+            "Condition": "MBUSED >= 250000 and MBUSED < 1000000",
+            "PrimaryKey": "TNAME",
+            "alias": ".",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "%FREE TableSpace > 250GB e < 1TB",
+        "transform": "timeseries_aggregations",
+        "type": "table-old"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 10,
+          "y": 24
+        },
+        "hiddenSeries": false,
+        "hideTimeOverride": true,
+        "id": 62,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sideWidth": null,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "TTSGAMB",
+            "AttributeGroup": "MetricGroup.KRZSGAOVEW",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": "3h",
+        "title": "Total SGA (MB)",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "decmbytes",
+            "label": "Number of Sessions",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 0,
+          "y": 26
+        },
+        "hiddenSeries": false,
+        "hideTimeOverride": true,
+        "id": 63,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sideWidth": null,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "TOTPGAUSMB",
+            "AttributeGroup": "MetricGroup.KRZRDPGAOV",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": "3h",
+        "title": "Total PGA in use (MB)",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "decmbytes",
+            "label": "Number of Sessions",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+          "h": 9,
+          "w": 10,
+          "x": 10,
+          "y": 30
+        },
+        "id": 2,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 1,
+          "desc": true
+        },
+        "styles": [
+          {
+            "alias": "Time",
+            "align": "auto",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "pattern": "Time",
+            "type": "date"
+          },
+          {
+            "alias": "",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "decimals": 2,
+            "pattern": "/.*/",
+            "thresholds": [],
+            "type": "number",
+            "unit": "decmbytes"
+          }
+        ],
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "SIZEMB",
+            "AttributeGroup": "MetricGroup.KRZDBTBSZ",
+            "Condition": "",
+            "PrimaryKey": "TBNAME",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "WRITETIME",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "timeShift": null,
+        "title": "Table Sizes",
+        "transform": "timeseries_aggregations",
+        "type": "table-old"
+      },
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 20,
+          "y": 30
+        },
+        "id": 28,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 1,
+          "desc": false
+        },
+        "styles": [
+          {
+            "alias": "% Free",
+            "align": "auto",
+            "colorMode": "row",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "#967302",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": null,
+            "link": false,
+            "mappingType": 1,
+            "pattern": "Current",
+            "thresholds": [
+              "7",
+              "14"
+            ],
+            "type": "number",
+            "unit": "percent"
+          },
+          {
+            "alias": "TableSpace Name",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "mappingType": 1,
+            "pattern": "Metric",
+            "thresholds": [],
+            "type": "number",
+            "unit": "short"
+          }
+        ],
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PCIFREE",
+            "AttributeGroup": "MetricGroup.KRZTSNLUE",
+            "Condition": "MBUSED >= 1000000",
+            "PrimaryKey": "TNAME",
+            "alias": ".",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "%FREE TableSpace >1TB",
+        "transform": "timeseries_aggregations",
+        "type": "table-old"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 0,
+          "y": 32
+        },
+        "hiddenSeries": false,
+        "hideTimeOverride": true,
+        "id": 46,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sideWidth": null,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "AgentInstance": "$AgentName",
+            "Attribute": "ACTIVE_CNT",
+            "AttributeGroup": "MetricGroup.KRZSESSSMY",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "B",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": "3h",
+        "title": "Active Session Count",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Number of Sessions",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 20,
+          "y": 34
+        },
+        "id": 48,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 1,
+          "desc": true
+        },
+        "styles": [
+          {
+            "alias": "% Used",
+            "align": "auto",
+            "colorMode": "row",
+            "colors": [
+              "rgba(50, 172, 45, 0.97)",
+              "#967302",
+              "rgba(245, 54, 54, 0.9)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": null,
+            "link": false,
+            "mappingType": 1,
+            "pattern": "Current",
+            "preserveFormat": true,
+            "rangeMaps": [
+              {
+                "from": "",
+                "text": "",
+                "to": ""
+              }
+            ],
+            "sanitize": false,
+            "thresholds": [
+              "95",
+              "99"
+            ],
+            "type": "number",
+            "unit": "short",
+            "valueMaps": []
+          },
+          {
+            "alias": "Instance",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "mappingType": 1,
+            "pattern": "Metric",
+            "thresholds": [],
+            "type": "number",
+            "unit": "short"
+          }
+        ],
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "PTOTLIMIT",
+            "AttributeGroup": "MetricGroup.KRZRDBPROS",
+            "Condition": "",
+            "PrimaryKey": "DBINSTNAME",
+            "alias": ".",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "TIMESTAMP",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "title": "Oracle Process Used % ",
+        "transform": "timeseries_aggregations",
+        "type": "table-old"
+      },
+      {
+        "aliasColors": {
+          "LOCKCNT:TX": "#c15c17"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 0,
+          "y": 38
+        },
+        "hiddenSeries": false,
+        "hideTimeOverride": true,
+        "id": 22,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": true,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 0.5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "LOCKCNT:TX",
+            "yaxis": 2
+          },
+          {
+            "alias": "Transaction:TX",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "LOCKCNT",
+            "AttributeGroup": "MetricGroup.KRZRDBLS",
+            "Condition": "",
+            "PrimaryKey": "LOCKTYPE",
+            "alias": "Lock",
+            "hide": false,
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "WRITETIME",
+            "timeRangeAttribute": "dashboard",
+            "valueAttribute": "displayValue"
+          }
+        ],
+        "thresholds": [
+          {
+            "colorMode": "critical",
+            "fill": true,
+            "line": true,
+            "op": "gt",
+            "value": 5000,
+            "yaxis": "right"
+          }
+        ],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": "3h",
+        "title": "Lock Count",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "transformations": [
+          {
+            "id": "filterByRefId",
+            "options": {}
+          },
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "Time",
+                  "Lock:TX"
+                ]
+              }
+            }
+          }
+        ],
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "none",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+          "h": 9,
+          "w": 10,
+          "x": 10,
+          "y": 39
+        },
+        "id": 3,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 1,
+          "desc": true
+        },
+        "styles": [
+          {
+            "alias": "Time",
+            "align": "auto",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "pattern": "Time",
+            "type": "date"
+          },
+          {
+            "alias": "",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "decimals": null,
+            "pattern": "/.*/",
+            "thresholds": [],
+            "type": "number",
+            "unit": "none"
+          }
+        ],
+        "targets": [
+          {
+            "AgentInstance": "$ORADB",
+            "Attribute": "NUMROWS",
+            "AttributeGroup": "MetricGroup.KRZDBTABLS",
+            "Condition": "",
+            "PrimaryKey": "TBNAME",
+            "alias": "TableName",
+            "refId": "A",
+            "target": "TMSAgent.%IBM.OracleAgentRDB",
+            "timeAttribute": "WRITETIME",
+            "timeRangeAttribute": "current",
+            "valueAttribute": "value"
+          }
+        ],
+        "timeShift": "3h",
+        "title": "Tables Number of Rows",
+        "transform": "timeseries_aggregations",
+        "type": "table-old"
+      }
+    ],
+    "refresh": "5m",
+    "schemaVersion": 25,
+    "style": "dark",
+    "tags": [
+      "oracle"
+    ],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "$AgentName",
+            "value": "$AgentName"
+          },
+          "datasource": "${DataSource}",
+          "definition": "TMSAgent.%IBM.OracleAgentRDB",
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "ORADB",
+          "options": [],
+          "query": "TMSAgent.%IBM.OracleAgentRDB",
+          "refresh": 1,
+          "regex": "/.*GE4.*/",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "ger-ggadb042:KUX",
+            "value": "ger-ggadb042:KUX"
+          },
+          "datasource": "IBM APM",
+          "definition": "TMSAgent.%IBM.STATIC013",
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "ORASERVERUNIX",
+          "options": [],
+          "query": "TMSAgent.%IBM.STATIC013",
+          "refresh": 1,
+          "regex": "/.*ggadb042.*/",
+          "skipUrlSync": false,
+          "sort": 1,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "hidden": false,
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "America/Sao_Paulo",
+    "title": "Oracle Details GE4",
+    "uid": "zkGkKukGk",
+    "version": 32
+  }
