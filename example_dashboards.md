@@ -2,6 +2,18 @@
 
 Sample dashboards can be imported from [here](Example_dashboards).
 
+- Sample Linux OS monitoring 
+  
+![](media/2020-07-02-11-20-51.png)
+
+- Agent Status
+  
+![](media/2020-07-02-11-15-50.png)
+
+- Oracle monitoring dashboard by [@romulolibralon](https://github.com/romulolibralon)
+
+![](media/2020-07-02-11-23-49.png)
+
 ## Other examples
 
 1). Sample IBM Stack monitoring dashboard with data from Linux OS, IBM HTTP Server, WebSphere Applications, WebSphere MQ, IBM DB2 and IBM Integration Bus agents:
