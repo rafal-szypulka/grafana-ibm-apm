@@ -15,7 +15,7 @@ Nginx should be configured either to clear the Referer header or set it as APM/I
         } 
 ```
 
-Full installation and configuration process (Grafana, Nginx and IBM APM plugin) is also recorded [here](https://developer.ibm.com/apm/videos/grafana-plugin-ibm-apm-installation-import-sample-dashboards/).
+Full installation and configuration process (Grafana, Nginx and IBM APM plugin) is also recorded [here](https://youtu.be/35ky41poRSo/).
 
 3). If you configured your new panel and do not see the data, use the 
 Chrome developer tools or Firefox Firebug and check the console – you should see an error message there. For example, if there is a syntax error in the **condition** field, the REST API will return status code 500 and the error message will be logged in the javascript console.
